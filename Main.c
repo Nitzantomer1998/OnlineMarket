@@ -1,6 +1,64 @@
 //Headers
 #include "SuperMarket.h"
 
+// Strings (Done)
+void inputString(char** _str) {
+
+	char str[100] = { NULL };
+
+	scanf_s("%s", str, 100);
+	*_str = malloc(strlen(str) * sizeof(char) + sizeof(char));
+	strcpy(*_str, str);
+}
+void appendString(char** _str1, char* _str2) {
+
+	char* str = malloc((strlen(*_str1) + strlen(_str2)) * sizeof(char) + sizeof(char));
+	if (!str) exit(1);
+
+	strcpy(str, *_str1);
+	strcat(str, _str2);
+	free(*_str1);
+	*_str1 = str;
+}
+void appendStringComma(char** _str1, char* _str2) {
+
+	appendString(_str1, _str2);
+	appendString(_str1, ",");
+}
+void appendStringNewLine(char** _str1, char* _str2) {
+
+	appendString(_str1, _str2);
+	appendString(_str1, "\n");
+}
+char* copyString(char* _str) {
+
+	char* str = malloc(sizeof(char) * strlen(_str) + sizeof(char));
+	if (!str)
+		exit(1);
+
+	strcpy(str, _str);
+	return str;
+}
+char* strToLower(char* _str) {
+
+	char* str = copyString(_str);
+	if (!str) exit(1);
+
+	for (int i = 0; i < strlen(_str); i++)
+		str[i] = tolower(str[i]);
+
+	return str;
+}
+int convertString()
+{
+	char string[500] = { NULL };
+
+	printf("Input --> ");
+	scanf_s("%s", string, 500);
+
+	return atoi(string);
+}
+
 //Manager + Customer (Status)
 void registerUserType(UserType type) 
 {
