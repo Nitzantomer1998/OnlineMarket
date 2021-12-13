@@ -10,12 +10,12 @@
 #include <time.h>
 
 // Strings (Done)
-void inputString(char** _str);
-void appendString(char** _str1, char* _str2);
-void appendStringComma(char** _str1, char* _str2);
-void appendStringNewLine(char** _str1, char* _str2);
-char* copyString(char* _str);
-char* strToLower(char* _str);
+void inputString(char** _Str);
+void appendString(char** _Str1, char* _Str2);
+void appendStringComma(char** _Str1, char* _Str2);
+void appendStringNewLine(char** _Str1, char* _Str2);
+char* copyString(char* _Str);
+char* strToLower(char* _Str);
 int convertString();
 
 //Manager + Customer (Done)
