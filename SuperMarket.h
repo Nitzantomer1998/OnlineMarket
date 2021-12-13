@@ -9,6 +9,15 @@
 #include <sys/types.h>
 #include <time.h>
 
+// Strings (Done)
+void inputString(char** _str);
+void appendString(char** _str1, char* _str2);
+void appendStringComma(char** _str1, char* _str2);
+void appendStringNewLine(char** _str1, char* _str2);
+char* copyString(char* _str);
+char* strToLower(char* _str);
+int convertString();
+
 //Manager + Customer (Done)
 void registerUserType(UserType type);
 void welcomeScreen();
