@@ -2,54 +2,54 @@
 #include "SuperMarket.h"
 
 // Strings (Done)
-void inputString(char** _str) 
+void inputString(char** _Str) 
 {
 	char string[100] = { NULL };
 
 	scanf_s("%s", string, 100);
-	*_str = malloc(strlen(string) * sizeof(char) + sizeof(char));
-	strcpy(*_str, string);
+	*_Str = malloc(strlen(string) * sizeof(char) + sizeof(char));
+	strcpy(*_Str, string);
 }
-void appendString(char** _str1, char* _str2) 
+void appendString(char** _Str1, char* _Str2) 
 {
 	char* pString = NULL;
 	
-	pString = malloc((strlen(*_str1) + strlen(_str2)) * sizeof(char) + sizeof(char));
+	pString = malloc((strlen(*_Str1) + strlen(_Str2)) * sizeof(char) + sizeof(char));
 	if (!pString) exit(1);
 
-	strcpy(pString, *_str1);
-	strcat(pString, _str2);
-	free(*_str1);
-	*_str1 = pString;
+	strcpy(pString, *_Str1);
+	strcat(pString, _Str2);
+	free(*_Str1);
+	*_Str1 = pString;
 }
-void appendStringComma(char** _str1, char* _str2) 
+void appendStringComma(char** _Str1, char* _Str2) 
 {
-	appendString(_str1, _str2);
-	appendString(_str1, ",");
+	appendString(_Str1, _Str2);
+	appendString(_Str1, ",");
 }
-void appendStringNewLine(char** _str1, char* _str2) 
+void appendStringNewLine(char** _Str1, char* _Str2) 
 {
-	appendString(_str1, _str2);
-	appendString(_str1, "\n");
+	appendString(_Str1, _Str2);
+	appendString(_Str1, "\n");
 }
-char* copyString(char* _str) 
+char* copyString(char* _Str) 
 {
 	char* pString = NULL;
 
-	pString = malloc(sizeof(char) * strlen(_str) + sizeof(char));
+	pString = malloc(sizeof(char) * strlen(_Str) + sizeof(char));
 	if (!pString) exit(1);
 
-	strcpy(pString, _str);
+	strcpy(pString, _Str);
 	return pString;
 }
-char* strToLower(char* _str) 
+char* strToLower(char* _Str) 
 {
 	char* pString = NULL;
 
-	pString = copyString(_str);
+	pString = copyString(_Str);
 	if (!pString) exit(1);
 
-	for (int i = 0; i < strlen(_str); i++)
+	for (int i = 0; i < strlen(_Str); i++)
 		pString[i] = tolower(pString[i]);
 
 	return pString;
