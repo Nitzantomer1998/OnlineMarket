@@ -12,15 +12,15 @@ void inputString(char** _str)
 }
 void appendString(char** _str1, char* _str2) 
 {
-	char* string = NULL;
+	char* pString = NULL;
 	
-	string = malloc((strlen(*_str1) + strlen(_str2)) * sizeof(char) + sizeof(char));
-	if (!string) exit(1);
+	pString = malloc((strlen(*_str1) + strlen(_str2)) * sizeof(char) + sizeof(char));
+	if (!pString) exit(1);
 
-	strcpy(string, *_str1);
-	strcat(string, _str2);
+	strcpy(pString, *_str1);
+	strcat(pString, _str2);
 	free(*_str1);
-	*_str1 = string;
+	*_str1 = pString;
 }
 void appendStringComma(char** _str1, char* _str2) 
 {
@@ -34,25 +34,25 @@ void appendStringNewLine(char** _str1, char* _str2)
 }
 char* copyString(char* _str) 
 {
-	char* string = NULL;
+	char* pString = NULL;
 
-	string = malloc(sizeof(char) * strlen(_str) + sizeof(char));
-	if (!string) exit(1);
+	pString = malloc(sizeof(char) * strlen(_str) + sizeof(char));
+	if (!pString) exit(1);
 
-	strcpy(string, _str);
-	return string;
+	strcpy(pString, _str);
+	return pString;
 }
 char* strToLower(char* _str) 
 {
-	char* string = NULL;
+	char* pString = NULL;
 
-	string = copyString(_str);
-	if (!string) exit(1);
+	pString = copyString(_str);
+	if (!pString) exit(1);
 
 	for (int i = 0; i < strlen(_str); i++)
-		string[i] = tolower(string[i]);
+		pString[i] = tolower(pString[i]);
 
-	return string;
+	return pString;
 }
 int convertString()
 {
