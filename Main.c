@@ -120,12 +120,12 @@ bool doesFileExists(char* filename)
 }
 Details* readUser(char* filename, UserType type) 
 {
-	FILE* file = fopen(filename, "r");
-	if (!file) exit(1);
-
 	Details details = { NULL, NULL, NULL, NULL, 0 };
 	char nameString[100] = { NULL }, IdString[100] = { NULL }, passwordString[100] = { NULL }, buffer[500] = { NULL }, phoneString[100] = { NULL };
 	float supermarketPoints = 0.0;
+
+	FILE* file = fopen(filename, "r");
+	if (!file) exit(1);
 
 	while (fscanf(file, "%s", buffer) == 1)
 	{
