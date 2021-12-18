@@ -64,6 +64,96 @@ int convertString()
 	return atoi(string);
 }
 
+// Files (Done)
+void checkFiles() 
+{
+	if (!doesFileExists(FILE_TEMP)) writeFile(FILE_TEMP, "");
+	if (!doesFileExists(FILE_TICKET)) writeFile(FILE_TICKET, "");
+	if (!doesFileExists(FILE_ORDERS)) writeFile(FILE_ORDERS, "");
+	if (!doesFileExists(FILE_GLOBAL)) writeFile(FILE_GLOBAL, "0");
+	if (!doesFileExists(FILE_CATALOG)) writeFile(FILE_CATALOG, "");
+	if (!doesFileExists(FILE_MANAGERS)) writeFile(FILE_MANAGERS, "");
+	if (!doesFileExists(FILE_CUSTOMERS)) writeFile(FILE_CUSTOMERS, "");
+}
+void checkFolder() 
+{
+	if (!doesFileExists(FOLDER_DATA)) createFolder(FOLDER_DATA);
+	if (!doesFileExists(FOLDER_DATA_USERS)) createFolder(FOLDER_DATA_USERS);
+	if (!doesFileExists(FOLDER_DATA_ORDERS)) createFolder(FOLDER_DATA_ORDERS);
+	if (!doesFileExists(FOLDER_DATA_TICKETS)) createFolder(FOLDER_DATA_TICKETS);
+}
+void createFolder(char* dirname) 
+{
+	int check = 0;
+	
+	check = mkdir(dirname);
+	if (check) exit(1);
+}
+void writeFile(char* filename, char* content) 
+{
+	FILE* file = fopen(filename, "ab+");
+	if (!file) exit(1);
+
+	fprintf(file, "%s", content);
+	fclose(file);
+}
+void writeUserType(Details* d, UserType type) 
+{
+	char output[200] = { NULL };
+
+	if (type == customer) 
+	{
+		sprintf(output, "%s,%s,%s,%.2f,%s\n", d->name, d->ID, d->password, 0.0, d->phone);
+		writeFile(FILE_CUSTOMERS, output);
+	}
+
+	if (type == manager) 
+	{
+		sprintf(output, "%s,%s,%s,%s\n", d->name, d->ID, d->password, d->phone);
+		writeFile(FILE_MANAGERS, output);
+	}
+}
+bool doesFileExists(char* filename) 
+{
+	struct stat buffer;
+	return !stat(filename, &buffer);
+}
+Details* readUser(char* filename, UserType type) 
+{
+	Details details = { NULL, NULL, NULL, NULL, 0 };
+	char nameString[100] = { NULL }, IdString[100] = { NULL }, passwordString[100] = { NULL }, buffer[500] = { NULL }, phoneString[100] = { NULL };
+	float supermarketPoints = 0.0;
+
+	FILE* file = fopen(filename, "r");
+	if (!file) exit(1);
+
+	while (fscanf(file, "%s", buffer) == 1)
+	{
+		if (type == customer) sscanf(buffer, "%[^,],%[^,],%[^,],%f,%[^,]", nameString, IdString, passwordString, &supermarketPoints, phoneString);
+		if (type == manager)  sscanf(buffer, "%[^,],%[^,],%[^,],%[^,]", nameString, IdString, passwordString, phoneString);
+
+		if (strcmp(IdString, Identity) == 0) 
+		{
+			Details returnDetails = { copyString(nameString), copyString(IdString), copyString(passwordString), copyString(phoneString), supermarketPoints };
+			fclose(file);
+			return &returnDetails;
+		}
+	}
+
+	fclose(file);
+	return &details;
+}
+UserType findUserType() 
+{
+	Details* details = readUser(FILE_CUSTOMERS, customer);
+	if (details->ID) return customer;
+
+	details = readUser(FILE_MANAGERS, manager);
+	if (details->ID) return manager;
+
+	return none;
+}
+
 //Manager + Customer (Status)
 void registerUserType(UserType type) 
 {
