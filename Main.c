@@ -353,7 +353,6 @@ bool verifyPhone(Details* d)
 }
 bool verifyPayment(char* creditCard, char* cvv, int expirationMonth, int expirationYear) 
 {
-
 	if (expirationMonth <= 0 || expirationMonth > 12)
 		return false;
 
