@@ -1,5 +1,6 @@
 #pragma once
 
+
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +9,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
+
 
 // Strings (Done)
 void inputString(char** _Str);
@@ -18,6 +20,7 @@ char* copyString(char* _Str);
 char* strToLower(char* _Str);
 int convertString();
 
+
 // Authentication (Done)
 bool verifyName(Details* d);
 bool verifyPassword(Details* d);
@@ -26,6 +29,7 @@ bool verifyAge();
 bool verifyPhone(Details* d);
 bool verifyPayment(char* creditCard, char* cvv, int expirationMonth, int expirationYear);
 bool termsAndConditions();
+
 
 //Manager + Customer (Done)
 void registerUserType(UserType type);
