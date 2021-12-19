@@ -113,7 +113,8 @@ bool verifyPhone(Details* d);
 bool verifyPayment(char* creditCard, char* cvv, int expirationMonth, int expirationYear); //Needs Work
 bool termsAndConditions();
 
-//ManagerMenu()
+
+//ManagerMenu(Done)
 void managerMenu();
 void managerStoreActions();
 void addToCatalog();
