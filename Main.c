@@ -353,6 +353,7 @@ bool verifyPhone(Details* d)
 }
 bool verifyPayment(char* creditCard, char* cvv, int expirationMonth, int expirationYear) 
 {
+
 	if (expirationMonth <= 0 || expirationMonth > 12)
 		return false;
 
@@ -375,22 +376,18 @@ bool verifyPayment(char* creditCard, char* cvv, int expirationMonth, int expirat
 }
 bool termsAndConditions() 
 {
+
 	char terms = { NULL };
 
 	printf("Terms and Conditions\n\n1. The Site, including any content and / or service available through it, is provided to you 'As It Is'. Although the Company takes all efforts to present the Site or through it as accurate and reliable information as possible, the Company is not and will not be responsible, directly or indirectly, for the availability, veracity, reliability and/or accuracy of the content appearing on the Site, and reliance on any content displayed on or through the Site is at your full responsibility.\n\n2. You may use the Site and the content available through it for private and personal purposes only. The content of the Site does not grant you any rights other than those set forth in these Terms, which constitutes an agreement for all intents and purposes between you and the Company.\n\n3. The content of the Website may not be used as a basis for the purpose of making financial, legal, personal and/or other decisions on your part. Any action taken by you based on this Content is done at your sole discretion and at your own responsibility. Products, descriptions, design, colors or the appearance of products and services described or displayed on the site are for illustration purposes only, in order to simulate the user's desired product in the closest and best way. If you have identified a significant gap between the visibility of the actual requested product and the product appearing on the site, please contact us to correct it, at the company's sole discretion. In any case, the Company shall not be liable in connection with any product and/or recipe and/or recommendations detailed or displayed on the website and through it.\n\n");
 
-	if (terms != 'Y' && terms != 'N') 
+	while (terms != 'Y' && terms != 'N') 
 	{
 		printf("Do you agree to the terms and conditions (Y/N)\nInput --> ");
-		//(void)getchar();
 		scanf_s(" %c", &terms, 1);
 
-		while (terms != 'Y' && terms != 'N') 
-		{
-			printf("Invalid input, Try again\nInput --> ");
-			//(void)getchar();
-			scanf_s(" %c", &terms, 1);
-		}
+		if (terms != 'Y' && terms != 'N')
+			printf("Invalid Input, Try Again\n\n");
 	}
 	
 	if (terms == 'Y') return true;
@@ -398,34 +395,6 @@ bool termsAndConditions()
 	else if (terms == 'N') return false;
 }
 
-//Manager + Customer (Status)
-void registerUserType(UserType type) 
-{
-	Details d;
-
-	printf("\nRegister Stage\n");
-
-	while (!verifyName(&d))
-		printf("Invalid, Try again\n\n");
-
-	while (!verifyPassword(&d))
-		printf("Invalid, Try again\n\n");
-
-	while (!verifyId(&d))
-		printf("Invalid, Try again!\n\n");
-
-	if (type == customer)
-		if (!verifyAge())
-			return;
-
-	while (!verifyPhone(&d))
-		printf("Invalid, Try again\n\n");
-
-	if (!termsAndConditions())
-		return;
-
-	writeUserType(&d, type);
-}
 void welcomeScreen()
 {
 	int selection = 0;
