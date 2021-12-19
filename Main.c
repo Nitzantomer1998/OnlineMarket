@@ -1,6 +1,7 @@
 //Headers
 #include "SuperMarket.h"
 
+
 // Strings (Done)
 void inputString(char** _Str) 
 {
@@ -63,6 +64,7 @@ int convertString()
 
 	return atoi(string);
 }
+
 
 // Files (Done)
 void checkFiles() 
@@ -153,6 +155,7 @@ UserType findUserType()
 
 	return none;
 }
+
 
 // Authentication (Done)
 bool verifyName(Details* d) 
@@ -393,6 +396,7 @@ bool termsAndConditions()
 
 	else if (terms == 'N') return false;
 }
+
 
 //Manager + Customer (Status)
 void registerUserType(UserType type) 
