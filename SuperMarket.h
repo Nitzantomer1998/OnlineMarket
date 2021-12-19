@@ -30,6 +30,20 @@ bool verifyPhone(Details* d);
 bool verifyPayment(char* creditCard, char* cvv, int expirationMonth, int expirationYear);
 bool termsAndConditions();
 
+//ManagerMenu(Done)
+void managerMenu();
+void managerStoreActions();
+void addToCatalog();
+void deleteFromCatalog(Product* p);
+void updateCatalog(Product* p, int userQuantity);
+void seeTickets(); //Work (add option to delete ticket after manager mark it)
+void printRevenue();
+void showOrders();
+void printOrder(int orderId);
+void changeOrderStatus(int id);
+int calcDateDiff(Date d2);
+Date getCurrentDate();
+
 
 //Manager + Customer (Done)
 void registerUserType(UserType type);
