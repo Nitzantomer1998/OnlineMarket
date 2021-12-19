@@ -18,6 +18,15 @@ char* copyString(char* _Str);
 char* strToLower(char* _Str);
 int convertString();
 
+// Authentication (Done)
+bool verifyName(Details* d);
+bool verifyPassword(Details* d);
+bool verifyId(Details* d);
+bool verifyAge();
+bool verifyPhone(Details* d);
+bool verifyPayment(char* creditCard, char* cvv, int expirationMonth, int expirationYear);
+bool termsAndConditions();
+
 //Manager + Customer (Done)
 void registerUserType(UserType type);
 void welcomeScreen();
