@@ -59,7 +59,6 @@ int convertString()
 {
 	char string[500] = { NULL };
 
-	printf("Input --> ");
 	scanf_s("%s", string, 500);
 
 	return atoi(string);
@@ -992,20 +991,20 @@ void registerUserType(UserType type)
 	Details d;
 
 	while (!verifyName(&d))
-		printf("Invalid, Try again\n\n");
+		printf("Invalid, Try Again\n\n");
 
 	while (!verifyPassword(&d))
-		printf("Invalid, Try again\n\n");
+		printf("Invalid, Try Again\n\n");
 
 	while (!verifyId(&d))
-		printf("Invalid, Try again!\n\n");
+		printf("Invalid, Try Again!\n\n");
 
 	if (type == customer)
 		if (!verifyAge())
 			return;
 
 	while (!verifyPhone(&d))
-		printf("Invalid, Try again\n\n");
+		printf("Invalid, Try Again\n\n");
 
 	if (!termsAndConditions())
 		return;
@@ -1021,7 +1020,7 @@ void welcomeScreen()
 
 	while(loop)
 	{
-		printf("'1' Register     '2' Login     '3' Exit\n");
+		printf("'1' Register     '2' Login     '3' Exit\nInput --> ");
 		selection = convertString();
 		
 		switch (selection) 
@@ -1046,14 +1045,14 @@ void welcomeScreen()
 }
 void registerStage() 
 {
-	printf("\nRegister as\n");
+	printf("\nRegister As\n");
 
 	int selection = 0, managerCode = 0;
 	bool loop = true;
 
 	while (loop)
 	{
-		printf("'1' Customer     '2' Manager     '3' Exit\n");
+		printf("'1' Customer     '2' Manager     '3' Exit\nInput --> ");
 		selection = convertString();
 
 		switch (selection) 
@@ -1064,7 +1063,7 @@ void registerStage()
 			break;
 
 		case 2:
-			printf("Manager Code ");
+			printf("Manager Code\nInput --> ");
 			managerCode = convertString();
 
 			if (MANAGER_CODE == managerCode)
@@ -1088,19 +1087,21 @@ void registerStage()
 }
 void loginUser() 
 {
-	char* userId, * userPassword;
+	printf("\nLogin Stage\n");
 
-	printf("\nLogin Stage\nID --> ");
+	char* userId = NULL, * userPassword = NULL;
+
+	printf("ID --> ");
 	inputString(&userId);
 
 	Identity = userId;
 
 	UserType type = findUserType();
 
-	if (!type) 
+	if (type == none) 
 	{
 		printf("ID Does Not Exist\n\n");
-		return none;
+		return;
 	}
 
 	printf("Password --> ");
@@ -1120,7 +1121,7 @@ void loginUser()
 
 		if (type == manager) 
 		{
-			printf("Manager.\n");
+			printf("Manager\n");
 			managerMenu();
 		}
 	}
@@ -1130,14 +1131,14 @@ void loginUser()
 }
 void profile() 
 {
+	printf("\nProfile Actions\n");
+
 	int selection = 0;
 	bool loop = true;
 
-	printf("\nProfile Actions\n");
-
 	while (loop)
 	{
-		printf("'1' Print Profile     '2' Update Profile     '3' Exit\n");
+		printf("'1' Print Profile     '2' Update Profile     '3' Exit\nInput --> ");
 		selection = convertString();
 
 		switch (selection) 
@@ -1164,23 +1165,26 @@ void profile()
 }
 void printProfile() 
 {
-	Details* details = readUser(findUserType(Identity) == customer ? FILE_CUSTOMERS : FILE_MANAGERS, findUserType(Identity));
-	char name[100] = { NULL }, id[100] = { NULL }, password[100] = { NULL }, phone[100] = { NULL };
-	float po = details->points;
-
-	strcpy(name, details->name);
-	strcpy(id, details->ID);
-	strcpy(password, details->password);
-	strcpy(phone, details->phone);
-
 	printf("\nUser Information\n");
-	printf("Name --> %s\n", name);
-	printf("ID --> %s\n", id);
-	printf("Password --> %s\n", password);
-	printf("Phone --> %s\n", phone);
+
+	Details* details = readUser(findUserType(Identity) == customer ? FILE_CUSTOMERS : FILE_MANAGERS, findUserType(Identity));
+	char _Name[100] = { NULL }, _ID[100] = { NULL }, _Password[100] = { NULL }, _Phone[100] = { NULL };
+	
+	strcpy(_Name, details->name);
+	strcpy(_ID, details->ID);
+	strcpy(_Password, details->password);
+	strcpy(_Phone, details->phone);
+
+	printf("Name --> %s\n", _Name);
+	printf("ID --> %s\n", _ID);
+	printf("Password --> %s\n", _Password);
+	printf("Phone --> %s\n", _Phone);
 
 	if (findUserType(Identity) == customer)
-		printf("Supermarket Points --> %.2f\n", po);
+	{
+		float _Points = details->points;
+		printf("Supermarket Points --> %.2f\n", _Points);
+	}
 }
 void updateProfile() 
 {
@@ -1190,8 +1194,8 @@ void updateProfile()
 	FILE* User = fopen(findUserType(Identity) == customer ? FILE_CUSTOMERS : FILE_MANAGERS, "r");
 	if (!User) exit(1);
 
-	bool loop = true;
 	int selection = 0;
+	bool loop = true;
 	char _Name[100] = { NULL }, _Id[100] = { NULL }, _Password[100] = { NULL }, _Phone[100] = { NULL }, _Points[100] = { NULL }, buffer[500] = { NULL };
 	Details d;
 
@@ -1207,7 +1211,7 @@ void updateProfile()
 
 				while (loop)
 				{
-					printf("'1' Name     '2' ID     '3' Password     '4' Phone\n");
+					printf("'1' Name     '2' ID     '3' Password     '4' Phone\nInput --> ");
 					selection = convertString();
 
 					switch (selection)
@@ -1270,14 +1274,12 @@ void updateProfile()
 
 		while (fscanf(Temp, "%s", buffer) == 1) 
 		{
-
 			sscanf(buffer, "%[^,],%[^,],%[^,],%[^,],%[^,]", _Name, _Id, _Password, _Points, _Phone);
 			fprintf(User, "%s,%s,%s,%s,%s\n", _Name, _Id, _Password, _Points, _Phone);
 		}
 		fclose(Temp);
 		fclose(User);
 	}
-
 
 	else if (findUserType(Identity) == manager) 
 	{
@@ -1291,7 +1293,7 @@ void updateProfile()
 
 				while (loop)
 				{
-					printf("'1' Name     '2' ID     '3' Password     '4' Phone\n");
+					printf("'1' Name     '2' ID     '3' Password     '4' Phone\nInput --> ");
 					selection = convertString();
 
 					switch (selection)
@@ -1354,7 +1356,6 @@ void updateProfile()
 
 		while (fscanf(Temp, "%s", buffer) == 1) 
 		{
-
 			sscanf(buffer, "%[^,],%[^,],%[^,],%[^,]", _Name, _Id, _Password, _Phone);
 			fprintf(User, "%s,%s,%s,%s\n", _Name, _Id, _Password, _Phone);
 		}
@@ -1400,7 +1401,7 @@ char* getNextOrderIdStr()
 	fclose(file);
 	return str;
 }
-bool doesProductExist(char* filename, char* _productName, char* _company) 
+bool doesProductExist(char* filename, char* _ProductName, char* _Company) 
 {
 	FILE* file = fopen(filename, "r");
 	if (!file) exit(1);
@@ -1412,7 +1413,7 @@ bool doesProductExist(char* filename, char* _productName, char* _company)
 	{
 		sscanf(buffer, "%[^,],%[^,],%*[^,],%*d,%*f", name, company);
 
-		if (strcmp(_productName, name) == 0 && strcmp(_company, company) == 0) 
+		if (strcmp(_ProductName, name) == 0 && strcmp(_Company, company) == 0) 
 		{
 			fclose(file);
 			return true;
@@ -1426,15 +1427,22 @@ Product selectProduct(Cart cart)
 {
 	printf("\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "ID", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
 	
-	Product product = { NULL, NULL, NULL, 0, 0 };
+	Product product = { NULL, NULL, NULL, 0, 0.0 };
 	int i = 1, res = 0;
 	char buffer[500] = { NULL };
 
 	for (i = 0; i < cart.itemsCount; i++) 
 		printf("%-15d%-15s%-15s%-15s%-15.2f%-15d\n", i + 1, cart.products[i].name, cart.products[i].company, cart.products[i].category, cart.products[i].price, cart.products[i].quantity);
 
-	printf("\nAvailable Action\n'0' Sort By Ascending Price\tElse Select Product\nInput --> ");
-	scanf_s("%d", &res);
+	printf("\nAvailable Action\n");
+	while (!(res >= 0 && res <= cart.itemsCount + 1))
+	{
+		printf("'0' Sort By Ascending Price     Else Select Product\nInput --> ");
+		res = convertString();
+
+		if (!(res >= 0 && res <= cart.itemsCount + 1))
+			printf("Invalid Input, Try Between [0 To %d]\n\n", cart.itemsCount + 1);
+	}
 
 sort:
 	if (res == 0) 
@@ -1457,45 +1465,37 @@ sort:
 		for (int i = 0; i < cart.itemsCount; i++) 
 			printf("%-15d%-15s%-15s%-15s%-15.2f%-15d\n", i + 1, cart.products[i].name, cart.products[i].company, cart.products[i].category, cart.products[i].price, cart.products[i].quantity);
 
-		printf("Select Product --> ");
-		scanf_s("%d", &res);
-		
 		while (!(res - 1 >= 0 && res - 1 < i)) 
 		{
-			printf("Invalid Selection, Please Try Again\nSelect Product --> ");
-			scanf_s("%d", &res);
+			printf("Select Product --> ");
+			res = convertString();
+
+			if (!(res - 1 >= 0 && res - 1 < i))
+				printf("Invalid Input, Try Between [1 To %d]\n\n", i - 1);
 		}
 		return cart.products[res - 1];
 	}
 
 	else 
-	{
-		while (!(res - 1 >= 0 && res - 1 < i)) 
-		{
-			printf("Invalid Selection, Please Try Again\nSelect Product --> ");
-			scanf_s("%d", &res);
-			if (res == 0) 
-				goto sort;
-		}
 		return cart.products[res - 1];
-	}
+
 	return product;
 }
-Product readProduct(char* filename, char* _productName, char* _company) 
+Product readProduct(char* filename, char* _ProductName, char* _Company) 
 {
 	FILE* file = fopen(filename, "r");
 	if (!file) exit(1);
 
-	Product tempProduct = { NULL, NULL, NULL, 0, 0 };
+	Product tempProduct = { NULL, NULL, NULL, 0, 0.0 };
 	char name[100] = { NULL }, company[100] = { NULL }, category[100] = { NULL }, buffer[500] = { NULL };
 	int quantity = 0;
-	float price = 0;
+	float price = 0.0;
 
 	while (fscanf(file, "%s", buffer) == 1) 
 	{
 		sscanf(buffer, "%[^,],%[^,],%[^,],%f, %d", name, company, category, &price, &quantity);
 
-		if (strcmp(_productName, name) == 0 && strcmp(_company, company) == 0) 
+		if (strcmp(_ProductName, name) == 0 && strcmp(_Company, company) == 0) 
 		{
 			Product anotherTempProduct = { copyString(name), copyString(company), copyString(category), quantity, price };
 			return anotherTempProduct;
