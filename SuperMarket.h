@@ -16,24 +16,25 @@
 #define MANAGER_CODE 1111
 #define PHONE_NUM_LEN 10
 #define MIN_PASSWORD_LEN 6
+#define CREADIT_CARD 16
 
 
-// Files (We got 2 temp files)
-#define FILE_ORDER "data\\temp.csv"
-#define FILE_ORDERS "data\\orders.csv"
-#define FILE_GLOBAL "data\\global.csv"
-#define FILE_CATALOG "data\\catalog.csv"
-#define FILE_TEMP "data\\users\\temp.csv"
-#define FILE_TICKET "data\\tickets\\ticket.csv"
-#define FILE_MANAGERS "data\\users\\managers.csv"
-#define FILE_CUSTOMERS "data\\users\\customers.csv"
+// Files
+#define FILE_TEMP "Data\\Temp.csv"
+#define FILE_ORDERS "Data\\Orders\\Order.csv"
+#define FILE_TICKET "Data\\Tickets\\Ticket.csv"
+#define FILE_MANAGERS "Data\\Users\\Managers.csv"
+#define FILE_CATALOG "Data\\Catalogs\\Catalog.csv"
+#define FILE_CUSTOMERS "Data\\Users\\Customers.csv"
 
 
 // Folders
-#define FOLDER_DATA "data\\"
-#define FOLDER_DATA_USERS "data\\users\\"
-#define FOLDER_DATA_ORDERS "data\\orders\\"
-#define FOLDER_DATA_TICKETS "data\\tickets\\"
+#define FOLDER_DATA "Data\\"
+#define FOLDER_DATA_USERS "Data\\Users\\"
+#define FOLDER_DATA_ORDERS "Data\\Orders\\"
+#define FOLDER_DATA_TICKETS "Data\\Tickets\\"
+#define FOLDER_DATA_CATALOGS "Data\\Catalogs\\"
+#define FOLDER_DATA_ORDERS_ORDERSUMMARY "Data\\Orders\\OrderSummary\\"
 
 
 // Enums
@@ -83,17 +84,18 @@ typedef struct Cart
 char* Identity;
 
 
-// Strings (Done)
+// Strings
 void inputString(char** _Str);
 void appendString(char** _Str1, char* _Str2);
 void appendStringComma(char** _Str1, char* _Str2);
 void appendStringNewLine(char** _Str1, char* _Str2);
 char* copyString(char* _Str);
 char* strToLower(char* _Str);
-int convertString();
+float stringToFloat();
+int stringToInt();
 
 
-// Files (Done)
+// Files
 void checkFiles(); 
 void checkFolder(); 
 void createFolder(char* dirname); 
@@ -104,16 +106,35 @@ Details* readUser(char* filename, UserType type);
 UserType findUserType();
 
 
-// Authentication (Done)
+// Authentication
 bool verifyName(Details* d);
 bool verifyPassword(Details* d);
 bool verifyId(Details* d);
 bool verifyAge();
 bool verifyPhone(Details* d);
-bool verifyPayment(char* creditCard, char* cvv, int expirationMonth, int expirationYear); //Needs Work
 bool termsAndConditions();
+bool verifyCreaditCard();
+bool verifyCCV();
+bool verifyMonth();
+bool verifyYear();
 
-//ManagerMenu(Done)
+
+//CustomerMenu
+void customerMenu();
+void customerShop(Cart* cart);
+void viewCart(Cart* cart);
+void printCart(Cart* cart);
+void openTicket();
+void addToCart(Cart* cart, Product product);
+void removeFromCart(Cart* cart, int index);
+void changeQuantity(Cart* cart, int index, int newQuantity);
+void writeOrder(Cart* cart, char* id);
+void finishOrder(Cart* cart, char* id);
+void updatePoints(char* id, float newPoints);
+Product selectByCategory();
+
+
+//ManagerMenu
 void managerMenu();
 void managerStoreActions();
 void addToCatalog();
@@ -128,22 +149,7 @@ int calcDateDiff(Date d2);
 Date getCurrentDate();
 
 
-//ManagerMenu(Done)
-void managerMenu();
-void managerStoreActions();
-void addToCatalog();
-void deleteFromCatalog(Product* p);
-void updateCatalog(Product* p, int userQuantity);
-void seeTickets(); //Work (add option to delete ticket after manager mark it)
-void printRevenue();
-void showOrders();
-void printOrder(int orderId);
-void changeOrderStatus(int id);
-int calcDateDiff(Date d2);
-Date getCurrentDate();
-
-
-//Manager + Customer (Done)
+//General
 void registerUserType(UserType type);
 void welcomeScreen();
 void registerStage();
@@ -151,8 +157,6 @@ void loginUser();
 void profile();
 void printProfile();
 void updateProfile();
-void appendOrderId();
-int getNextOrderId();
 char* getNextOrderIdStr();
 bool doesProductExist(char* filename, char* _ProductName, char* _Company);
 Product selectProduct(Cart cart);
