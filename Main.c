@@ -77,9 +77,9 @@ int stringToInt()
 void checkFiles() 
 {
 	if (!doesFileExists(FILE_TEMP)) writeFile(FILE_TEMP, "");
-	if (!doesFileExists(FILE_TICKET)) writeFile(FILE_TICKET, "");
+	if (!doesFileExists(FILE_TICKETS)) writeFile(FILE_TICKETS, "");
 	if (!doesFileExists(FILE_ORDERS)) writeFile(FILE_ORDERS, "");
-	if (!doesFileExists(FILE_CATALOG)) writeFile(FILE_CATALOG, "");
+	if (!doesFileExists(FILE_CATALOGS)) writeFile(FILE_CATALOGS, "");
 	if (!doesFileExists(FILE_MANAGERS)) writeFile(FILE_MANAGERS, "");
 	if (!doesFileExists(FILE_CUSTOMERS)) writeFile(FILE_CUSTOMERS, "");
 }
@@ -91,6 +91,7 @@ void checkFolder()
 	if (!doesFileExists(FOLDER_DATA_TICKETS)) createFolder(FOLDER_DATA_TICKETS);
 	if (!doesFileExists(FOLDER_DATA_CATALOGS)) createFolder(FOLDER_DATA_CATALOGS);
 	if (!doesFileExists(FOLDER_DATA_ORDERS_ORDERSUMMARY)) createFolder (FOLDER_DATA_ORDERS_ORDERSUMMARY);
+	if (!doesFileExists(FOLDER_DATA_TICKETS_TICKETSUMMARY)) createFolder(FOLDER_DATA_TICKETS_TICKETSUMMARY);
 }
 void createFolder(char* dirname) 
 {
@@ -649,22 +650,30 @@ void printCart(Cart* cart)
 }
 void openTicket() 
 {
-	char _Index[50] = { NULL }, _Report[500] = { NULL };
-	int num = 0;
+	char source[300] = { NULL }, ticketNum[100] = { NULL }, _Report[500] = { NULL };
+	strcpy(ticketNum, getNextTicketIdStr());
 
-	FILE* file = fopen(FILE_TICKET, "ab+");
+	sprintf(source, "%s%s.csv", FOLDER_DATA_TICKETS_TICKETSUMMARY, ticketNum);
+
+	FILE* file = fopen(source, "w");
 	if (!file) exit(1);
 
-	printf("Input Report--> ");
+	Date date = getCurrentDate();
+	fprintf(file, "%s,%d/%d/%d\n", ticketNum, date.day, date.month, date.year);
+
+	printf("Input Report --> ");
 	scanf_s(" %[^\n]", _Report, 500);
-
-	char buffer[500] = { NULL };
-	while (fgets(buffer, 500, file))
-		num++;
-
-	sprintf(_Index, "%d", num);
-	fprintf(file, "No:  %s,Report -->,%s\n", _Index, _Report);
+		
+	fprintf(file, "%s\n", _Report);
 	fclose(file);
+
+	file = fopen(FILE_TICKETS, "ab+");
+	if (!file) exit(1);
+
+	fprintf(file, "%s,%s,%d/%d/%d,WAITING\n", ticketNum, Identity, date.day, date.month, date.year);
+	fclose(file);
+
+	printf("Ticket Been Send, Have A Good Day\n\n");
 }
 void addToCart(Cart* cart, Product product) 
 {	
@@ -688,7 +697,7 @@ void addToCart(Cart* cart, Product product)
 void removeFromCart(Cart* cart, int index) 
 {
 	Product* newProduct = malloc(sizeof(Product) * (cart->itemsCount - 1));
-	Product p = readProduct(FILE_CATALOG, cart->products[index].name, cart->products[index].company);
+	Product p = readProduct(FILE_CATALOGS, cart->products[index].name, cart->products[index].company);
 
 	updateCatalog(&p, p.quantity + cart->products[index].quantity);
 	
@@ -708,7 +717,7 @@ void removeFromCart(Cart* cart, int index)
 void changeQuantity(Cart* cart, int index, int newQuantity) 
 {
 	bool flag = false;
-	Product p = readProduct(FILE_CATALOG, cart->products[index].name, cart->products[index].company);
+	Product p = readProduct(FILE_CATALOGS, cart->products[index].name, cart->products[index].company);
 	int availableQuantity = p.quantity;
 
 	if (newQuantity > cart->products[index].quantity) 
@@ -729,7 +738,7 @@ void changeQuantity(Cart* cart, int index, int newQuantity)
 		cart->products[index].quantity = newQuantity;
 	}
 }
-void writeOrder(Cart* cart, char* id) 
+void writeOrder(Cart* cart) 
 {
 	char source[300] = { NULL }, orderNum[100] = { NULL };
 	strcpy(orderNum, getNextOrderIdStr());
@@ -756,7 +765,7 @@ void writeOrder(Cart* cart, char* id)
 	file = fopen(FILE_ORDERS, "ab+");
 	if (!file) exit(1);
 
-	fprintf(file, "%s,%s,%.2f,%d/%d/%d,WAITING\n", orderNum, id, total, date.day, date.month, date.year);
+	fprintf(file, "%s,%s,%.2f,%d/%d/%d,WAITING\n", orderNum, Identity, total, date.day, date.month, date.year);
 	fclose(file);
 	
 	Details* user = readUser(FILE_CUSTOMERS, customer);
@@ -773,14 +782,14 @@ void writeOrder(Cart* cart, char* id)
 				printf("Invalid Input, Try Again\n\n");
 
 			if (selection == 1)
-				updatePoints(id, user->points > total ? user->points - total : 0);
+				updatePoints(user->points > total ? user->points - total : 0);
 		}
 	}
 	printf("In This Purchase You've Earned %.2f Market Points\n", total * 0.03);
-	updatePoints(id, user->points + total * 0.03);
+	updatePoints(user->points + total * 0.03);
 	printf("Your Purchase Was Successful\n\n");
 }
-void finishOrder(Cart* cart, char* id) 
+void finishOrder(Cart* cart) 
 {
 	printCart(cart);
 	
@@ -813,11 +822,11 @@ void finishOrder(Cart* cart, char* id)
 	while (!(verifyYear()))
 		continue;
 	
-	writeOrder(cart, id);
+	writeOrder(cart);
 	cart->itemsCount = 0;
 	free(cart->products);
 }
-void updatePoints(char* id, float newPoints) 
+void updatePoints(float newPoints) 
 {
 	FILE* file = fopen(FILE_CUSTOMERS, "r");
 	if (!file) exit(1);
@@ -828,7 +837,7 @@ void updatePoints(char* id, float newPoints)
 	while (fscanf(file, "%s", buffer) == 1) 
 	{
 		sscanf(buffer, "%[^,],%[^,],%[^,],%f,%[^,]", name, customerId, pass, &points, phone);
-		sprintf(temp, "%s,%s,%s,%f,%s\n", name, customerId, pass, strcmp(customerId, id) == 0 ? newPoints : points, phone);
+		sprintf(temp, "%s,%s,%s,%f,%s\n", name, customerId, pass, strcmp(customerId, Identity) == 0 ? newPoints : points, phone);
 		appendString(&output, temp);
 	}
 	
@@ -893,7 +902,7 @@ void managerMenu()
 
 	while (loop)
 	{
-		printf("\nManager Actions\n'1' Store     '2' Profile     '3' View Orders     '4' Store Profits     '5' Reports     '6' Log Out\nInput --> ");
+		printf("\nManager Actions\n'1' Store     '2' Profile     '3' View Orders     '4' Store Profits     '5' View Tickets     '6' Log Out\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection) 
@@ -993,7 +1002,7 @@ void addToCatalog()
 		printf("Company --> ");
 		inputString(&rProductCompany);
 
-		if (doesProductExist(FILE_CATALOG, rProductName, rProductCompany)) 
+		if (doesProductExist(FILE_CATALOGS, rProductName, rProductCompany)) 
 		{
 			printf("Company Product Already In Stock\n");
 			return;
@@ -1049,14 +1058,14 @@ void addToCatalog()
 
 	char output[200] = { NULL };
 	sprintf(output, "%s,%s,%s,%.2f,%d\n", rProductName, rProductCompany, rProductCategory, rProductPrice, rProductQuantity);
-	writeFile(FILE_CATALOG, output);
+	writeFile(FILE_CATALOGS, output);
 }
 void deleteFromCatalog(Product* p) 
 {
 	FILE* Temp = fopen(FILE_TEMP, "w");
 	if (!Temp) exit(1);
 
-	FILE* CataLog = fopen(FILE_CATALOG, "r");
+	FILE* CataLog = fopen(FILE_CATALOGS, "r");
 	if (!CataLog) exit(1);
 
 	char _Name[100] = { NULL }, _Company[100] = { NULL }, _Category[100] = { NULL }, _Price[100] = { NULL }, _Quantity[100] = { NULL }, buffer[500] = { NULL };
@@ -1071,7 +1080,7 @@ void deleteFromCatalog(Product* p)
 	fclose(CataLog);
 	fclose(Temp);
 
-	CataLog = fopen(FILE_CATALOG, "w");
+	CataLog = fopen(FILE_CATALOGS, "w");
 	if (!CataLog) exit(1);
 
 	Temp = fopen(FILE_TEMP, "r");
@@ -1091,7 +1100,7 @@ void updateCatalog(Product* p, int userQuantity)
 	FILE* Temp = fopen(FILE_TEMP, "w");
 	if (!Temp) exit(1);
 
-	FILE* CataLog = fopen(FILE_CATALOG, "r");
+	FILE* CataLog = fopen(FILE_CATALOGS, "r");
 	if (!CataLog) exit(1);
 
 	char _Name[100] = { NULL }, _Company[100] = { NULL }, _Category[100] = { NULL }, _Price[100] = { NULL };
@@ -1164,7 +1173,7 @@ void updateCatalog(Product* p, int userQuantity)
 	fclose(CataLog);
 	fclose(Temp);
 
-	CataLog = fopen(FILE_CATALOG, "w");
+	CataLog = fopen(FILE_CATALOGS, "w");
 	if (!CataLog) exit(1);
 
 	Temp = fopen(FILE_TEMP, "r");
@@ -1181,14 +1190,167 @@ void updateCatalog(Product* p, int userQuantity)
 }
 void seeTickets() 
 {
-	FILE* User = fopen(FILE_TICKET, "r");
-	if (!User) exit(1);
+	int selection = 0;
+	while (!(selection >= 1 && selection <= 3))
+	{
+		printf("\nTicket Actions\n'1' Print All Tickets     '2' Confirm/Unconfirmed Tickets     '3' Return\nInput --> ");
+		selection = stringToInt();
+
+		if (!(selection >= 1 && selection <= 3))
+			printf("Invalid Input, Try Between [1 To 3]\n\n");
+	}
+
+	FILE* file = fopen(FILE_TICKETS, "r");
+	if (!file) exit(1);
+
+	int count = 0, waitingCount = 0;
+	char buffer[500] = { NULL }, status[30] = { NULL };
+
+	while (fscanf(file, "%s", buffer) == 1)
+	{
+		sscanf(buffer, "%*[^,],%*[^,],%*[^,],%[^,]", status);
+
+		if (strcmp(status, "WAITING") == 0)
+			waitingCount++;
+		count++;
+	}
+
+	fclose(file);
+
+	int* tickets = NULL, * waitingTickets = NULL, ticketId = 0;
+	char customerId[30] = { NULL }, date[40] = { NULL };
+
+	if (selection == 1)
+	{
+		file = fopen(FILE_TICKETS, "r");
+		if (!file) exit(1);
+
+		tickets = malloc(sizeof(int) * count);
+
+		printf("\n%-15s%-15s%-15s%-15s\n", "Ticket No.", "Customer ID", "Date", "Status");
+
+		int i = 0;
+		while (fscanf(file, "%s", buffer) == 1)
+		{
+			sscanf(buffer, "%d,%[^,],%[^,],%[^,]", &ticketId, customerId, date, status);
+			printf("%-15d%-15s%-15s%-15s\n", ticketId, customerId, date, status);
+			tickets[i] = ticketId;
+			i++;
+		}
+
+		bool flag = false;
+		while (!flag)
+		{
+			printf("Select Ticket (Ticket No. ) --> ");
+			selection = stringToInt();
+
+			for (int i = 0; i < count; i++)
+			{
+				if (tickets[i] == selection)
+				{
+					printTicket(selection);
+					free(tickets);
+					fclose(file);
+					return;
+				}
+			}
+			printf("Invalid Input, Try Between [0 To %d]\n\n", i - 1);
+		}
+	}
+
+	else if (selection == 2)
+	{
+		file = fopen(FILE_TICKETS, "r");
+		if (!file) exit(1);
+
+		waitingTickets = malloc(sizeof(int) * waitingCount);
+
+		printf("\n%-15s%-15s%-15s%-15s\n", "Ticket No.", "Customer ID", "Date", "Status");
+
+		int i = 0;
+
+		while (fscanf(file, "%s", buffer) == 1)
+		{
+			sscanf(buffer, "%d,%[^,],%[^,],%[^,]", &ticketId, customerId, date, status);
+
+			if (strcmp(status, "WAITING") == 0)
+			{
+				printf("%-15d%-15s%-15s%-15s\n", ticketId, customerId, date, status);
+				waitingTickets[i] = ticketId;
+				i++;
+			}
+		}
+		bool flag = false;
+
+		while (!flag)
+		{
+			printf("Select Ticket (Ticket No. ) --> ");
+			selection = stringToInt();
+
+			for (int i = 0; i < waitingCount; i++)
+			{
+				if (waitingTickets[i] == selection)
+				{
+					printTicket(selection);
+					changeTicketStatus(selection);
+					free(waitingTickets);
+					fclose(file);
+					return;
+				}
+			}
+			printf("Invalid Input, Try Between [The Ticket No. Column]\n\n");
+		}
+	}
+
+	else if (selection == 3)
+		return;
+}
+void printTicket(int ticketId)
+{
+	char source[300] = { NULL };
+	sprintf(source, "%s%d.csv", FOLDER_DATA_TICKETS_TICKETSUMMARY, ticketId);
+
+	FILE* file = fopen(source, "r");
+	if (!file) exit(1);
+
+	char str[100] = { NULL };
+	fscanf(file, "%*d,%s", str);
+
+	printf("\nTicket No. --> %d From %s", ticketId, str);
 
 	char buffer[500] = { NULL }, _Index[50] = { NULL }, _Report[400] = { NULL };
-	while (fgets(buffer, 500, User))
+	while (fgets(buffer, 500, file))
 		printf("%s", buffer);
 
-	fclose(User);
+	fclose(file);
+}
+void changeTicketStatus(int id)
+{
+	int count = 0;
+	char* output = copyString("");
+
+	FILE* file = fopen(FILE_TICKETS, "r");
+	if (!file) exit(1);
+
+	char buffer[500] = { NULL }, temp[500] = { NULL }, customerId[30] = { NULL }, date[40] = { NULL }, status[30] = { NULL };
+	int ticketId = 0;
+
+	while (fscanf(file, "%s", buffer) == 1)
+	{
+		sscanf(buffer, "%d,%[^,],%[^,],%[^,]", &ticketId, customerId, date, status);
+		sprintf(temp, "%d,%s,%s,%s\n", ticketId, customerId, date, id == ticketId ? "CONFIRMED" : status);
+		appendString(&output, temp);
+	}
+	
+	fclose(file);
+
+	file = fopen(FILE_TICKETS, "w");
+	if (!file) exit(1);
+
+	fputs(output, file);
+	fclose(file);
+	free(output);
+	printf("Ticket Has Been Approved\n\n");
 }
 void printRevenue() 
 {
@@ -1282,7 +1444,7 @@ void showOrders()
 	
 	float price = 0.0;
 	int* orders = NULL, * waitingOrders = NULL, orderId = 0;
-	char customerId[30] = { NULL }, date[40] = { NULL }, address[40] = { NULL };
+	char customerId[30] = { NULL }, date[40] = { NULL };
 	
 	if (selection == 1)
 	{
@@ -1291,7 +1453,7 @@ void showOrders()
 
 		orders = malloc(sizeof(int) * count);
 
-		printf("\n%-15s%-15s%-15s%-15s%-15s\n", "Order ID", "Customer ID", "Total", "Date", "Status");
+		printf("\n%-15s%-15s%-15s%-15s%-15s\n", "Order No. ", "Customer ID", "Total", "Date", "Status");
 
 		int i = 0;
 		while (fscanf(file, "%s", buffer) == 1)
@@ -1305,8 +1467,7 @@ void showOrders()
 		bool flag = false;
 		while (!flag)
 		{
-			int selection = 0;
-			printf("Select Order (Order ID) --> ");
+			printf("Select Order (Order No. ) --> ");
 			selection = stringToInt();
 
 			for (int i = 0; i < count; i++)
@@ -1330,7 +1491,7 @@ void showOrders()
 
 		waitingOrders = malloc(sizeof(int) * waitingCount);
 
-		printf("\n%-15s%-15s%-15s%-15s%-15s\n", "Order ID", "Customer ID", "Total", "Date", "Status");
+		printf("\n%-15s%-15s%-15s%-15s%-15s\n", "Order No. ", "Customer ID", "Total", "Date", "Status");
 
 		int i = 0;
 
@@ -1351,7 +1512,7 @@ void showOrders()
 		{
 			int selection = 0;
 
-			printf("Select Order (Order ID) --> ");
+			printf("Select Order (Order No. ) --> ");
 			selection = stringToInt();
 
 			for (int i = 0; i < waitingCount; i++)
@@ -1365,7 +1526,7 @@ void showOrders()
 					return;
 				}
 			}
-			printf("Invalid Input, Try Between [The Order ID No. Column]\n\n");
+			printf("Invalid Input, Try Between [The Order No. Column]\n\n");
 		}
 	}
 
@@ -1384,7 +1545,7 @@ void printOrder(int orderId)
 	char str[100] = { NULL };
 	fscanf(file, "%*d,%d,%s", &count, str);
 
-	printf("\nOrder ID --> %d From %s\n", orderId, str);
+	printf("\nOrder No. --> %d From %s\n", orderId, str);
 	printf("%-14s%-15s%-15s%-15s%s", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
 
 	char name[100] = { NULL }, company[100] = { NULL }, category[100] = { NULL };
@@ -1406,14 +1567,12 @@ void changeOrderStatus(int id)
 	int count = 0;
 	char* output = copyString("");
 
-	if (!doesFileExists(FILE_ORDERS)) exit(1);
-
 	FILE* file = fopen(FILE_ORDERS, "r");
 	if (!file) exit(1);
 
 	char buffer[500] = { NULL }, temp[500] = { NULL }, customerId[30] = { NULL }, date[40] = { NULL }, status[30] = { NULL };
-	int orderId = -1;
-	float price = -1;
+	int orderId = 0;
+	float price = 0;
 	
 	while (fscanf(file, "%s", buffer) == 1) 
 	{	
@@ -1869,6 +2028,28 @@ char* getNextOrderIdStr()
 	strcpy(pString, _Index);
 	return pString;
 }
+char* getNextTicketIdStr()
+{
+	char _Index[50] = { NULL };
+	int num = 0;
+
+	FILE* file = fopen(FILE_TICKETS, "r");
+	if (!file) exit(1);
+
+	char buffer[500] = { NULL };
+	while (fgets(buffer, 500, file))
+		num++;
+
+	sprintf(_Index, "%d", num);
+	fclose(file);
+
+	char* pString = NULL;
+	pString = (char*)malloc(strlen(_Index) * sizeof(char) + sizeof(char));
+	if (!pString) exit(1);
+
+	strcpy(pString, _Index);
+	return pString;
+}
 bool doesProductExist(char* filename, char* _ProductName, char* _Company) 
 {
 	FILE* file = fopen(filename, "r");
@@ -1977,7 +2158,7 @@ Product readProduct(char* filename, char* _ProductName, char* _Company)
 }
 Cart retrieveProducts(bool returnAll, char* search, char* searchCategory)
 {
-	FILE* file = fopen(FILE_CATALOG, "r");
+	FILE* file = fopen(FILE_CATALOGS, "r");
 	if (!file) exit(1);
 
 	int count = 0, quantity = -1;
@@ -2023,7 +2204,7 @@ Cart retrieveProducts(bool returnAll, char* search, char* searchCategory)
 	cart.itemsCount = count;
 	fclose(file);
 
-	file = fopen(FILE_CATALOG, "r");
+	file = fopen(FILE_CATALOGS, "r");
 	if (!file) exit(1);
 
 	while (fscanf(file, "%s", buffer) == 1) 
