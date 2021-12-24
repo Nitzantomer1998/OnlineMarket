@@ -2,7 +2,7 @@
 #include "SuperMarket.h"
 
 
-// Strings (Done)
+// Strings
 void inputString(char** _Str) 
 {
 	char string[100] = { NULL };
@@ -73,7 +73,7 @@ int stringToInt()
 }
 
 
-// Files (Done)
+// Files
 void checkFiles() 
 {
 	if (!doesFileExists(FILE_TEMP)) writeFile(FILE_TEMP, "");
@@ -95,7 +95,6 @@ void checkFolder()
 void createFolder(char* dirname) 
 {
 	int check = 0;
-	
 	check = mkdir(dirname);
 	if (check) exit(1);
 }
@@ -165,7 +164,7 @@ UserType findUserType()
 }
 
 
-// Authentication (Done)
+// Authentication
 bool verifyName(Details* d) 
 {
 	char string[100] = { NULL };
@@ -177,7 +176,7 @@ bool verifyName(Details* d)
 	{
 		if (!((string[i] >= 'a' && string[i] <= 'z') || (string[i] >= 'A' && string[i] <= 'Z'))) 
 		{
-			printf("Name Can Contain Only English Alphabet\n");
+			printf("Name Can Contain Only English Alphabet\n\n");
 			d->name = NULL;
 			return false;
 		}
@@ -199,7 +198,7 @@ bool verifyPassword(Details* d)
 
 	if (strlen(pString) < MIN_PASSWORD_LEN) 
 	{
-		printf("Password Must Contain At Least 6 Characters\n");
+		printf("Password Must Contain At Least Six Characters\n\n");
 		return false;
 	}
 
@@ -216,15 +215,18 @@ bool verifyPassword(Details* d)
 		else if (pString[i] >= '0' && pString[i] <= '9')
 			numbers++;
 
-		else 
+		else
+		{
+			printf("Password Contain Only English Alphabet\n\n");
 			return false;
+		}
 	}
 
 	if (!numbers)
-		printf("Password Must Contain At Least One Number\n");
+		printf("Password Must Contain At Least One Number\n\n");
 
 	if (!letters)
-		printf("Password Must Contain At Least One letter\n");
+		printf("Password Must Contain At Least One Letter\n\n");
 
 	if (letters && numbers) 
 	{
@@ -285,16 +287,15 @@ bool verifyId(Details* d)
 				int selection = 0;
 				bool loop = true;
 
-				printf("\nAvailable Actions\n");
-
 				while (loop)
 				{
-					printf("'1' Wrong ID\t'2' Report For Identity Steal\n");
+					printf("\nAvailable Actions\n'1' Wrong ID     '2' Report For Identity Steal\nInput --> ");
 					selection = stringToInt();
 
 					switch (selection) 
 					{
 					case 1:
+						printf("You've Chose To Re Enter Other ID\n\n");
 						loop = false;
 						break;
 
@@ -307,6 +308,7 @@ bool verifyId(Details* d)
 						break;
 					}
 				}
+
 				return false;
 			}
 			d->ID = pString;
@@ -314,22 +316,34 @@ bool verifyId(Details* d)
 		}
 
 		else if (Res != Digit9)
+		{
+			printf("Incorrect ID\n\n");
 			return false;
+		}
 	}
 
 	else
+	{
+		printf("ID Must Contain Nine Didits\n\n");
 		return false;
+	}
 }
 bool verifyAge() 
 {
 	int age = 0;
 
 	printf("Age --> ");
-	scanf_s("%d", &age);
+	age = stringToInt();
 
 	if (age < LEGAL_AGE) 
 	{
-		printf("We Are Sry, The Minimum Age Is 16\n\n");
+		printf("We Are Sry, The Minimum Age Is Sixteen\n\n");
+		return false;
+	}
+
+	if (age > 120)
+	{
+		printf("Sry If You Are Trully  %d Years Old You Probably Death. Good Day\n\n", age);
 		return false;
 	}
 
@@ -346,7 +360,7 @@ bool verifyPhone(Details* d)
 
 	if (strlen(pString) != PHONE_NUM_LEN) 
 	{
-		printf("Phone Number Must Contain Ten Digits\n");
+		printf("Phone Number Must Contain Ten Digits\n\n");
 		return false;
 	}
 
@@ -354,7 +368,7 @@ bool verifyPhone(Details* d)
 	{
 		if (!(pString[i] >= '0' && pString[i] <= '9')) 
 		{
-			printf("Phone Number Can Contain Only Digits\n");
+			printf("Phone Number Contain Only Digits\n\n");
 			return false;
 		}
 	}
@@ -364,35 +378,37 @@ bool verifyPhone(Details* d)
 }
 bool termsAndConditions() 
 {
-
-	char terms = { NULL };
-
 	printf("Terms and Conditions\n\n1. The Site, including any content and / or service available through it, is provided to you 'As It Is'. Although the Company takes all efforts to present the Site or through it as accurate and reliable information as possible, the Company is not and will not be responsible, directly or indirectly, for the availability, veracity, reliability and/or accuracy of the content appearing on the Site, and reliance on any content displayed on or through the Site is at your full responsibility.\n\n2. You may use the Site and the content available through it for private and personal purposes only. The content of the Site does not grant you any rights other than those set forth in these Terms, which constitutes an agreement for all intents and purposes between you and the Company.\n\n3. The content of the Website may not be used as a basis for the purpose of making financial, legal, personal and/or other decisions on your part. Any action taken by you based on this Content is done at your sole discretion and at your own responsibility. Products, descriptions, design, colors or the appearance of products and services described or displayed on the site are for illustration purposes only, in order to simulate the user's desired product in the closest and best way. If you have identified a significant gap between the visibility of the actual requested product and the product appearing on the site, please contact us to correct it, at the company's sole discretion. In any case, the Company shall not be liable in connection with any product and/or recipe and/or recommendations detailed or displayed on the website and through it.\n\n");
 
-	while (terms != 'Y' && terms != 'N') 
+	int selection = 0;
+	while (!(selection >= 1 && selection <= 2))
 	{
-		printf("Do you agree to the terms and conditions (Y/N)\nInput --> ");
-		scanf_s(" %c", &terms, 1);
+		printf("Do You Agree To The Terms And Conditions\n'1' Yes     '2' No\nInput --> ");
+		selection = stringToInt();
 
-		if (terms != 'Y' && terms != 'N')
-			printf("Invalid Input, Try Again\n\n");
+		if (!(selection >= 1 && selection <= 2))
+			printf("Invalid Input, Try Between [1 To 2]\n\n");
 	}
 	
 	printf("\n");
-	if (terms == 'Y') return true;
+	if (selection == 1) return true;
 
-	else if (terms == 'N') return false;
+	else if (selection == 2)
+	{
+		printf("We Are Sry To Hear, Have A Good Day\n\n");
+		return false;
+	}
 }
 bool verifyCreaditCard()
 {
 	char* pCreaditCard = NULL;
 
-	printf("\nCreadit Card\nInput --> ");
+	printf("\nCreadit Card (Without Spaces)\nInput --> ");
 	inputString(&pCreaditCard);
 
 	if (strlen(pCreaditCard) != CREADIT_CARD)
 	{
-		printf("Creadit Card Must Contain 16 Digits\n");
+		printf("Creadit Card Must Contain Sixteen Digits\n\n");
 		return false;
 	}
 
@@ -402,7 +418,7 @@ bool verifyCreaditCard()
 	{
 		if (!(pCreaditCard[i] >= '0' && pCreaditCard[i] <= '9'))
 		{
-			printf("Creadit Card Contain Only Digits");
+			printf("Creadit Card Contain Only Digits\n\n");
 			return false;
 		}
 	}
@@ -414,12 +430,13 @@ bool verifyCCV()
 	int CCV = 0;
 	while (!(CCV >= 100 && CCV <= 999))
 	{
-		printf("CCV\nInput --> ");
+		printf("\nCCV\nInput --> ");
 		CCV = stringToInt();
 
 		if (!(CCV >= 100 && CCV <= 999))
-			printf("Invalid Input, Try Again\n\n");
+			printf("Invalid Input, Try Between [100 To 999]\n\n");
 	}
+	
 	return true;
 }
 bool verifyMonth()
@@ -427,12 +444,13 @@ bool verifyMonth()
 	int Month = 0;
 	while (!(Month >= 1 && Month <= 12))
 	{
-		printf("Expiration Month (Numerical Value)\nInput --> ");
+		printf("\nExpiration Month\nInput --> ");
 		Month = stringToInt();
 
 		if (!(Month >= 1 && Month <= 12))
-			printf("Invalid Input, Try Again\n\n");
+			printf("Invalid Input, Try Between [1 To 12]\n\n");
 	}
+	
 	return true;
 }
 bool verifyYear()
@@ -440,17 +458,18 @@ bool verifyYear()
 	int Year = 0;
 	while (!(Year >= 2022 && Year <= 2035))
 	{
-		printf("Expiration Year (Numerical Value)\nInput --> ");
+		printf("\nExpiration Year\nInput --> ");
 		Year = stringToInt();
 
 		if (!(Year >= 2022 && Year <= 2035))
-			printf("Invalid Input, Try Again\n\n");
+			printf("Invalid Input, Try Between [2022 To 2035]\n\n");
 	}
+	
 	return true;
 }
 
 
-//CustomerMenu()
+//CustomerMenu
 void customerMenu() 
 {
 	Cart c = { NULL , 0 };
@@ -459,8 +478,7 @@ void customerMenu()
 
 	while (loop) 
 	{
-		printf("\nCustomer Actions\n");
-		printf("'1' Store     '2' Profile     '3' View Cart     '4' Finish Order     '5' Submit Ticket     '6' Exit\nInput --> ");
+		printf("\nCustomer Actions\n'1' Store     '2' Profile     '3' View Cart     '4' Finish Order     '5' Submit Ticket     '6' Log Out\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection) 
@@ -486,6 +504,7 @@ void customerMenu()
 			break;
 
 		case 6:
+			printf("You've Successfully Logged Out\n\n");
 			loop = false;
 			break;
 
@@ -505,8 +524,7 @@ void customerShop(Cart* cart)
 
 	while (loop)
 	{
-		printf("\nSearch Product By\n");
-		printf("'1' Name/Company     '2' Category     '3' Show All Products\nInput --> ");
+		printf("\nSearch Product By\n'1' Name/Company     '2' Category     '3' Show All Products\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection)
@@ -515,6 +533,9 @@ void customerShop(Cart* cart)
 			printf("\nName/Company\nInput --> ");
 			inputString(&search);
 			product = selectProduct(retrieveProducts(false, search, NULL));
+			if (product.quantity == 0)
+				return;
+
 			loop = false;
 			break;
 
@@ -534,14 +555,14 @@ void customerShop(Cart* cart)
 		}
 	}
 
-	int selectedQuantity = -1;
-	while (!(selectedQuantity > 0 && selectedQuantity <= product.quantity)) 
+	int selectedQuantity = 0;
+	while (!(selectedQuantity >= 1 && selectedQuantity <= product.quantity)) 
 	{
 		printf("\nProduct Quantity\nInput --> ");
 		selectedQuantity = stringToInt();
 
-		if (!(selectedQuantity > 0 && selectedQuantity <= product.quantity)) 
-			printf("Invalid Input, Try Again\n\n");
+		if (!(selectedQuantity >= 1 && selectedQuantity <= product.quantity)) 
+			printf("Invalid Input, Try Between [1 To %d]\n\n", product.quantity);
 	}
 	
 	Product addedProduct = product;
@@ -551,84 +572,71 @@ void customerShop(Cart* cart)
 }
 void viewCart(Cart* cart) 
 {
-	int selection = 0;
+	int selection = 0, optionA = 0, optionB = -1;
 	bool loop = true;
 	
 	while (loop)
 	{
 		printCart(cart);
-		printf("\n'1' Edit Cart     '2' Back To Menu\nInput --> ");
+		printf("\nCart Actions\n'1' Edit Cart     '2' Back To Menu\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection)
 		{
 		case 1:
-		{
-			int optionA = 0;
-			while (!(optionA - 1 < cart->itemsCount && optionA > 0)) 
+			optionA = 0;
+			while (!(optionA >= 1 && optionA <= cart->itemsCount))
 			{
-				printf("Select Product\nInput --> ");
+				printf("\nSelect Product\nInput --> ");
 				optionA = stringToInt();
 
-				if (!(optionA - 1 < cart->itemsCount && optionA > 0)) 
-					printf("Invalid Input, Try Again\n\n");
+				if (!(optionA >= 1 && optionA <= cart->itemsCount))
+					printf("Invalid Input, Try Between [1 To %d]\n\n", cart->itemsCount);
 			}
-
-			int optionB = -1;
-			while (!(optionB > 0 && optionB <= 3)) 
+			
+			optionB = 0;
+			while (!(optionB >= 1 && optionB <= 3)) 
 			{
-				printf("\n'1' Change Quantity     '2' Remove Product     '3' Exit\nInput --> ");
+				printf("\nProduct Actions\n'1' Change Quantity     '2' Remove Product     '3' Return\nInput --> ");
 				optionB = stringToInt();
-				scanf_s("%d", &optionB);
 
-				if (!(optionB > 0 && optionB <= 3)) 
-					printf("Invalid Input, Try Again\n\n");
+				if (!(optionB >= 1 && optionB <= 3)) 
+					printf("Invalid Input, Try Between [1 To 3]\n\n");
 			}
 
 			if (optionB == 1) 
 			{
-				optionB = -1;
-				if (optionB < 0) 
+				optionB = 0;
+				while (optionB <= 0) 
 				{
-					printf("New Quantity\nInput --> ");
-					scanf_s("%d", &optionB);
+					printf("\nNew Quantity\nInput --> ");
+					optionB = stringToInt();
 
-					if (optionB < 0)
-						printf("Invalid Input, Try Again\n\n");
+					if (optionB <= 0)
+						printf("Invalid Input, Try Between [1 Or Greater]\n\n");
 				}
 				changeQuantity(cart, optionA - 1, optionB);
 			}
 
-			if (optionB == 2) 
-			{
-				int optionA = 0;
-				while (!(optionA - 1 < cart->itemsCount && optionA > 0)) 
-				{
-					printf("Select Product\nInput --> ");
-					scanf_s("%d", &optionA);
-
-					if (!(optionA - 1 < cart->itemsCount && optionA > 0)) 
-						printf("Invalid Input, Try Again\n\n");
-				}
+			else if (optionB == 2) 
 				removeFromCart(cart, optionA - 1);
-			}
+
 			loop = false;
 			break;
-		}
-
+		
 		case 2:
 			loop = false;
 			return;
 
 		default:
-			printf("Invalid Input, Try Again\n\n");
+			printf("Invalid Input, Try Between [1 To 2]\n\n");
 			break;
 		}
 	}
 }
 void printCart(Cart* cart) 
 {
-	printf("\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "ID", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
+	printf("\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "No.", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
 
 	float total = 0;
 
@@ -669,7 +677,9 @@ void addToCart(Cart* cart, Product product)
 	else 
 	{
 		Product* newProducts = malloc(sizeof(Product) * (cart->itemsCount + 1));
-		for (int i = 0; i < cart->itemsCount; i++) newProducts[i] = cart->products[i];
+		for (int i = 0; i < cart->itemsCount; i++) 
+			newProducts[i] = cart->products[i];
+		
 		newProducts[cart->itemsCount] = product;
 		cart->products = newProducts;
 	}
@@ -766,8 +776,9 @@ void writeOrder(Cart* cart, char* id)
 				updatePoints(id, user->points > total ? user->points - total : 0);
 		}
 	}
-	printf("In This Purchase You've Earned %.2f Market Points (3%% Of Your Purchase Amount)\n", total * 0.03);
+	printf("In This Purchase You've Earned %.2f Market Points\n", total * 0.03);
 	updatePoints(id, user->points + total * 0.03);
+	printf("Your Purchase Was Successful\n\n");
 }
 void finishOrder(Cart* cart, char* id) 
 {
@@ -775,18 +786,21 @@ void finishOrder(Cart* cart, char* id)
 	
 	int selection = 0;
 	
-	while (!(selection > 0 && selection <= 2))
+	while (!(selection >= 1 && selection <= 2))
 	{
 		printf("Are You Sure You Would Like To Finish The Order?\n'1' Yes     '2' No\nInput --> ");
 		selection = stringToInt();
 
-		if (!(selection > 0 && selection <= 2))
-			printf("Invalid Input, Try Again\n\n");
+		if (!(selection >= 1 && selection <= 2))
+			printf("Invalid Input, Try Between [1 To 2]\n\n");
 
 	}
+	
 	if (selection == 2)
 		return;
 	
+	printf("\nPayment Process");
+
 	while (!(verifyCreaditCard()))
 		continue;
 
@@ -798,6 +812,7 @@ void finishOrder(Cart* cart, char* id)
 
 	while (!(verifyYear()))
 		continue;
+	
 	writeOrder(cart, id);
 	cart->itemsCount = 0;
 	free(cart->products);
@@ -870,7 +885,7 @@ Product selectByCategory()
 }
 
 
-//ManagerMenu(Done)
+//ManagerMenu
 void managerMenu() 
 {
 	int selection = 0;
@@ -878,7 +893,7 @@ void managerMenu()
 
 	while (loop)
 	{
-		printf("\nManager Actions\n'1' Store     '2' Profile     '3' View Orders     '4' Store Profits     '5' Reports     '6' Exit\nInput --> ");
+		printf("\nManager Actions\n'1' Store     '2' Profile     '3' View Orders     '4' Store Profits     '5' Reports     '6' Log Out\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection) 
@@ -904,6 +919,7 @@ void managerMenu()
 			break;
 
 		case 6:
+			printf("You've Successfully Logged Out\n\n");
 			loop = false;
 			break;
 
@@ -917,12 +933,11 @@ void managerStoreActions()
 {
 	int selection = 0;
 	bool loop = true;
-	Product p;
+	Product p = { NULL, NULL, NULL, 0, 0.0 };
 	
 	while (loop)
 	{
-		printf("\nStore Actions\n");
-		printf("'1' Add Product     '2' Delete Product     '3' Update Product     '4' Exit\nInput --> ");
+		printf("\nStore Actions\n'1' Add Product     '2' Delete Product     '3' Update Product     '4' Return\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection)
@@ -953,12 +968,12 @@ void managerStoreActions()
 }
 void addToCatalog() 
 {
-	printf("\nAdding Product");
+	printf("\nAdding Product\n");
 
 	char* rProductName = NULL;
 	while (!rProductName) 
 	{
-		printf("\nName --> ");
+		printf("Name --> ");
 		inputString(&rProductName);
 
 		for (int i = 0; i < strlen(rProductName); i++)
@@ -966,7 +981,7 @@ void addToCatalog()
 			if (!(rProductName[i] >= 'a' && rProductName[i] <= 'z' || rProductName[i] >= 'A' && rProductName[i] <= 'Z'))
 			{
 				rProductName = NULL;
-				printf("Invalid Input, Try Again\n\n");
+				printf("Name Contain Only English Alphabet\n\n");
 				break;
 			}
 		}
@@ -989,7 +1004,7 @@ void addToCatalog()
 			if (!(rProductCompany[i] >= 'a' && rProductCompany[i] <= 'z' || rProductCompany[i] >= 'A' && rProductCompany[i] <= 'Z')) 
 			{
 				rProductCompany = NULL;
-				printf("Invlaid Input, Try Again\n\n");
+				printf("Company Contain Only English Alphabet\n\n");
 				break;
 			}
 		}
@@ -1006,20 +1021,20 @@ void addToCatalog()
 			if (!(rProductCategory[i] >= 'a' && rProductCategory[i] <= 'z' || rProductCategory[i] >= 'A' && rProductCategory[i] <= 'Z')) 
 			{
 				rProductCategory = NULL;
-				printf("Invalid Input, Try Again\n\n");
+				printf("Category Contain Only English Alphabet\n\n");
 				break;
 			}
 		}
 	}
 
-	float rProductPrice = -1;
-	while (rProductPrice < 0) 
+	float rProductPrice = 0;
+	while (rProductPrice <= 0) 
 	{
 		printf("Price --> ");
-		scanf_s("%f", &rProductPrice);
+		rProductPrice = stringToFloat();
 
-		if (rProductPrice < 0)
-			printf("Invalid Input, Try Again\n\n");
+		if (rProductPrice <= 0)
+			printf("Invalid Input, Try Between [1 Or Greater]\n\n");
 	}
 
 	int rProductQuantity = 0;
@@ -1029,7 +1044,7 @@ void addToCatalog()
 		rProductQuantity = stringToInt();
 
 		if (rProductQuantity <= 0)
-			printf("Invalid Input, Try Again\n\n");
+			printf("Invalid Input, Try Between [1 Or Greater]\n\n");
 	}
 
 	char output[200] = { NULL };
@@ -1081,20 +1096,18 @@ void updateCatalog(Product* p, int userQuantity)
 
 	char _Name[100] = { NULL }, _Company[100] = { NULL }, _Category[100] = { NULL }, _Price[100] = { NULL };
 	char buffer[500] = { NULL }, newPrice[100] = { NULL }, newQuantity[100] = { NULL }, _Quantity[100] = { NULL };
-	
-
 	int selection = 0;
 
 	if (userQuantity == -1) 
 	{
-		while (!(selection > 0 && selection <= 2)) 
+		while (!(selection >= 1 && selection <= 2)) 
 		{
 			printf("\nProduct Actions\n");
 			printf("'1' Update Price     '2' Update Quantity\nInput --> ");
 			selection = stringToInt();
 
-			if (!(selection > 0 && selection <= 2))
-				printf("Invalid Input, Try Again\n\n");
+			if (!(selection >= 1 && selection <= 2))
+				printf("Invalid Input, Try Between [1 To 2]\n\n");
 		}
 	}
 
@@ -1114,11 +1127,11 @@ void updateCatalog(Product* p, int userQuantity)
 			{
 				while (updatedPrice <= 0) 
 				{
-					printf("Updated Price\nInput --> ");
+					printf("\nUpdate Price\nInput --> ");
 					updatedPrice = stringToFloat();
 
 					if (updatedPrice <= 0)
-						printf("Invalid input, Try again\n\n");
+						printf("Invalid Input, Try Between [1 Or Greater]\n\n");
 				}
 
 				sprintf(newPrice, "%.2f", updatedPrice);
@@ -1131,11 +1144,11 @@ void updateCatalog(Product* p, int userQuantity)
 				{
 					while (updatedQuantity <= 0) 
 					{
-						printf("Updated Quantity\nInput --> ");
+						printf("\nUpdate Quantity\nInput --> ");
 						updatedQuantity = stringToInt();
 
 						if (updatedQuantity <= 0)
-							printf("Invalid Input, Try Again\n\n");
+							printf("Invalid Input, Try Between [1 Or Greater]\n\n");
 					}
 				}
 
@@ -1179,31 +1192,30 @@ void seeTickets()
 }
 void printRevenue() 
 {
-	int selection = -1;
+	int selection = 0;
 
-	printf("\nRevenue Action\n");
-
-	while (!(selection > 0 && selection <= 3)) 
+	while (!(selection >= 1 && selection <= 4)) 
 	{
-		printf("'1' Last 30 Days     '2' Last 7 Days     '3' Current Day\n");
+		printf("\nRevenue Actions\n'1' Last 30 Days     '2' Last 7 Days     '3' Current Day     '4' Return\nInput --> ");
 		selection = stringToInt();
 
-		if (!(selection > 0 && selection <= 3)) 
-			printf("Invalid Input, Try Again\n\n");
+		if (!(selection >= 1 && selection <= 4)) 
+			printf("Invalid Input, Try Between [1 To 4]\n\n");
 	}
 	
+	if (selection == 4)
+		return;
+
 	FILE* file = fopen(FILE_ORDERS, "r");
 	if (!file) exit(1);
 
 	Date tempDate = { 0,0,0 };
 	char buffer[500] = { NULL };
-	float revenue = 0;
+	float revenue = 0.0, price = 0.0;
 	int ordersCount = 0;
-	
+
 	while (fscanf(file, "%s", buffer) == 1) 
 	{	
-		float price = 0;
-		
 		sscanf(buffer, "%*[^,],%*[^,],%f,%d/%d/%d,%*[^,]", &price, &tempDate.day, &tempDate.month, &tempDate.year);
 		
 		int dayDiff = calcDateDiff(tempDate);
@@ -1241,15 +1253,14 @@ void printRevenue()
 }
 void showOrders() 
 {	
-	int selection = -1;
-	while (!(selection > 0 && selection <= 2)) 
+	int selection = 0;
+	while (!(selection >= 1 && selection <= 3)) 
 	{
-		printf("\nOrders Actions\n");
-		printf("'1' Print All Orders     '2' Confirm/Unconfirmed Orders\nInput --> ");
+		printf("\nOrder Actions\n'1' Print All Orders     '2' Confirm/Unconfirmed Orders     '3' Return\nInput --> ");
 		selection = stringToInt();
 
-		if (!(selection > 0 && selection <= 2))
-			printf("Invalid Input, Try Again\n\n");
+		if (!(selection >= 1 && selection <= 3))
+			printf("Invalid Input, Try Between [1 To 3]\n\n");
 	}
 	
 	FILE* file = fopen(FILE_ORDERS, "r");
@@ -1269,11 +1280,11 @@ void showOrders()
 	
 	fclose(file);
 	
-	float price = -1;
-	int* orders = NULL, * waitingOrders = NULL, orderId = -1;
+	float price = 0.0;
+	int* orders = NULL, * waitingOrders = NULL, orderId = 0;
 	char customerId[30] = { NULL }, date[40] = { NULL }, address[40] = { NULL };
 	
-	if (selection == 1) 
+	if (selection == 1)
 	{
 		file = fopen(FILE_ORDERS, "r");
 		if (!file) exit(1);
@@ -1281,39 +1292,39 @@ void showOrders()
 		orders = malloc(sizeof(int) * count);
 
 		printf("\n%-15s%-15s%-15s%-15s%-15s\n", "Order ID", "Customer ID", "Total", "Date", "Status");
-		
+
 		int i = 0;
-		while (fscanf(file, "%s", buffer) == 1) 
-		{	
+		while (fscanf(file, "%s", buffer) == 1)
+		{
 			sscanf(buffer, "%d,%[^,],%f,%[^,],%[^,]", &orderId, customerId, &price, date, status);
 			printf("%-15d%-15s%-15.2f%-15s%-15s\n", orderId, customerId, price, date, status);
 			orders[i] = orderId;
 			i++;
 		}
-		
-		bool flag = false;
-		while (!flag) 
-		{
-			int ans = 0;
-			printf("Select order (ID) -- > ");
-			scanf_s("%d", &ans);
 
-			for (int i = 0; i < count; i++) 
+		bool flag = false;
+		while (!flag)
+		{
+			int selection = 0;
+			printf("Select Order (Order ID) --> ");
+			selection = stringToInt();
+
+			for (int i = 0; i < count; i++)
 			{
-				if (orders[i] == ans) 
+				if (orders[i] == selection)
 				{
-					printOrder(ans);
+					printOrder(selection);
 					free(orders);
 					fclose(file);
 					return;
 				}
 			}
-			printf("Invalid Input, Try Again\n\n");
+			printf("Invalid Input, Try Between [0 To %d]\n\n", i - 1);
 		}
 	}
 
-	else if (selection == 2) 
-	{	
+	else if (selection == 2)
+	{
 		file = fopen(FILE_ORDERS, "r");
 		if (!file) exit(1);
 
@@ -1323,11 +1334,11 @@ void showOrders()
 
 		int i = 0;
 
-		while (fscanf(file, "%s", buffer) == 1) 
+		while (fscanf(file, "%s", buffer) == 1)
 		{
 			sscanf(buffer, "%d,%[^,],%f,%[^,],%[^,]", &orderId, customerId, &price, date, status);
-		
-			if (strcmp(status, "WAITING") == 0) 
+
+			if (strcmp(status, "WAITING") == 0)
 			{
 				printf("%-15d%-15s%-15.2f%-15s%-15s\n", orderId, customerId, price, date, status);
 				waitingOrders[i] = orderId;
@@ -1336,43 +1347,44 @@ void showOrders()
 		}
 		bool flag = false;
 
-		while (!flag) 
+		while (!flag)
 		{
-			int ans = 0;
+			int selection = 0;
 
-			printf("Select order (ID) -- > ");
-			scanf_s("%d", &ans);
-			
-			for (int i = 0; i < waitingCount; i++) 
+			printf("Select Order (Order ID) --> ");
+			selection = stringToInt();
+
+			for (int i = 0; i < waitingCount; i++)
 			{
-				if (waitingOrders[i] == ans) 
+				if (waitingOrders[i] == selection)
 				{
-					printOrder(ans);
-					changeOrderStatus(ans);
+					printOrder(selection);
+					changeOrderStatus(selection);
 					free(waitingOrders);
 					fclose(file);
 					return;
 				}
 			}
-			printf("Invalid Input, Try Again\n\n");
+			printf("Invalid Input, Try Between [The Order ID No. Column]\n\n");
 		}
 	}
+
+	else if (selection == 3)
+		return;
 }
 void printOrder(int orderId) 
 {
 	char source[300] = { NULL };
-	sprintf(source, "%s%d.csv", FOLDER_DATA_ORDERS, orderId);
-
-	if (!doesFileExists(source)) exit(1);
+	sprintf(source, "%s%d.csv", FOLDER_DATA_ORDERS_ORDERSUMMARY, orderId);
 
 	FILE* file = fopen(source, "r");
 	if (!file) exit(1);
 
 	int count = 0;
-	char str[20] = { NULL };
+	char str[100] = { NULL };
 	fscanf(file, "%*d,%d,%s", &count, str);
 
-	printf("\nOrder ID --> %d from %s\n", orderId, str);
+	printf("\nOrder ID --> %d From %s\n", orderId, str);
 	printf("%-14s%-15s%-15s%-15s%s", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
 
 	char name[100] = { NULL }, company[100] = { NULL }, category[100] = { NULL };
@@ -1382,13 +1394,9 @@ void printOrder(int orderId)
 	for (int i = 0; i < count; i++) 
 	{
 		fscanf(file, "%[^,],%[^,],%[^,],%f,%d", name, company, category, &price, &quantity);
-		printf("%-15s%-15s%-15s%-15.2f%-15d",
-			name,
-			company,
-			category,
-			price,
-			quantity);
+		printf("%-15s%-15s%-15s%-15.2f%-15d", name, company, category, price, quantity);
 	}
+
 	fscanf(file, "%f", &price);
 	printf("\nTotal --> %.2f\n", price);
 	fclose(file);
@@ -1422,7 +1430,7 @@ void changeOrderStatus(int id)
 	fputs(output, file);
 	fclose(file);
 	free(output);
-	printf("Order Has Been Approved\n");
+	printf("Order Has Been Approved\n\n");
 }
 int calcDateDiff(Date d2) 
 {
@@ -1453,34 +1461,7 @@ Date getCurrentDate()
 }
 
 
-//Manager + Customer (Status)
-void registerUserType(UserType type) 
-{
-	printf("\nRegister Stage\n");
-
-	Details d;
-
-	while (!verifyName(&d))
-		printf("Invalid, Try Again\n\n");
-
-	while (!verifyPassword(&d))
-		printf("Invalid, Try Again\n\n");
-
-	while (!verifyId(&d))
-		printf("Invalid, Try Again!\n\n");
-
-	if (type == customer)
-		if (!verifyAge())
-			return;
-
-	while (!verifyPhone(&d))
-		printf("Invalid, Try Again\n\n");
-
-	if (!termsAndConditions())
-		return;
-
-	writeUserType(&d, type);
-}
+//General
 void welcomeScreen()
 {
 	int selection = 0;
@@ -1520,7 +1501,7 @@ void registerStage()
 	while (loop)
 	{
 		printf("\nRegister As\n");
-		printf("'1' Customer     '2' Manager     '3' Exit\nInput --> ");
+		printf("'1' Customer     '2' Manager     '3' Return\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection) 
@@ -1552,6 +1533,33 @@ void registerStage()
 			break;
 		}
 	}
+}
+void registerUserType(UserType type)
+{
+	printf("\nRegister Stage\n");
+
+	Details d;
+
+	while (!verifyName(&d))
+		continue;
+
+	while (!verifyPassword(&d))
+		continue;
+
+	while (!verifyId(&d))
+		continue;
+
+	if (type == customer)
+		if (!verifyAge())
+			return;
+
+	while (!verifyPhone(&d))
+		continue;
+
+	if (!termsAndConditions())
+		return;
+
+	writeUserType(&d, type);
 }
 void loginUser() 
 {
@@ -1605,7 +1613,7 @@ void profile()
 	while (loop)
 	{
 		printf("\nProfile Actions\n");
-		printf("'1' Print Profile     '2' Update Profile     '3' Exit\nInput --> ");
+		printf("'1' Print Profile     '2' Update Profile     '3' Return\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection) 
@@ -1677,8 +1685,8 @@ void updateProfile()
 			{
 				while (loop)
 				{
-					printf("\nChange Options\n");
-					printf("'1' Name     '2' ID     '3' Password     '4' Phone     '5' Exit\nInput --> ");
+					printf("\nUpdatable Actions\n");
+					printf("'1' Name     '2' ID     '3' Password     '4' Phone     '5' Return\nInput --> ");
 					selection = stringToInt();
 
 					switch (selection)
@@ -1763,8 +1771,8 @@ void updateProfile()
 			{
 				while (loop)
 				{
-					printf("\nChange Options\n");
-					printf("'1' Name     '2' ID     '3' Password     '4' Phone     '5' Exit\nInput --> ");
+					printf("\nUpdatable Actions\n");
+					printf("'1' Name     '2' ID     '3' Password     '4' Phone     '5' Return\nInput --> ");
 					selection = stringToInt();
 
 					switch (selection)
@@ -1866,7 +1874,7 @@ bool doesProductExist(char* filename, char* _ProductName, char* _Company)
 	FILE* file = fopen(filename, "r");
 	if (!file) exit(1);
 
-	Product tempProduct = { NULL, NULL, NULL, 0, 0 };
+	Product tempProduct = { NULL, NULL, NULL, 0, 0.0 };
 	char name[100] = { NULL }, company[100] = { NULL }, buffer[500] = { NULL };
 
 	while (fscanf(file, "%s", buffer) == 1) 
@@ -1885,9 +1893,13 @@ bool doesProductExist(char* filename, char* _ProductName, char* _Company)
 }
 Product selectProduct(Cart cart) 
 {
-	printf("\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "ID", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
-	
 	Product product = { NULL, NULL, NULL, 0, 0.0 };
+
+	if (cart.itemsCount == 0)
+		return product;
+
+	printf("\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "No.", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
+	
 	int i = 1, res = -1;
 	char buffer[500] = { NULL };
 
@@ -1896,7 +1908,7 @@ Product selectProduct(Cart cart)
 
 	while (!(res >= 0 && res <= cart.itemsCount))
 	{
-		printf("\nAvailable Action\n");
+		printf("\nAvailable Actions\n");
 		printf("'0' Sort By Ascending Price     '1 To %d' Select Product\nInput --> ", cart.itemsCount);
 		res = stringToInt();
 
@@ -1920,14 +1932,14 @@ sort:
 			}
 		}
 
-		printf("\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "ID", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
+		printf("\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "No. ", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
 		
 		for (int i = 0; i < cart.itemsCount; i++) 
 			printf("%-15d%-15s%-15s%-15s%-15.2f%-15d\n", i + 1, cart.products[i].name, cart.products[i].company, cart.products[i].category, cart.products[i].price, cart.products[i].quantity);
 
 		while (!(res - 1 >= 0 && res - 1 < i)) 
 		{
-			printf("Select Product\nInput --> ");
+			printf("\nSelect Product\nInput --> ");
 			res = stringToInt();
 
 			if (!(res - 1 >= 0 && res - 1 < i))
@@ -1996,9 +2008,16 @@ Cart retrieveProducts(bool returnAll, char* search, char* searchCategory)
 			count++;
 	}
 
+	Cart cart = { NULL, 0 };
+
+	if (count == 0)
+	{
+		printf("Product/Company Does Not Exist In Our Catalog\n\n");
+		return cart;
+	}
+
 	float price = -1;
 	int ite = 0;
-	Cart cart = { NULL, 0 };
 
 	cart.products = malloc(sizeof(Product) * count);
 	cart.itemsCount = count;
@@ -2055,6 +2074,6 @@ int main()
 	checkFolder();
 	checkFiles();
 	welcomeScreen();
-	
+
 	return 0;
 }
