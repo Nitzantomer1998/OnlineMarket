@@ -22,9 +22,9 @@
 // Files
 #define FILE_TEMP "Data\\Temp.csv"
 #define FILE_ORDERS "Data\\Orders\\Order.csv"
-#define FILE_TICKET "Data\\Tickets\\Ticket.csv"
+#define FILE_TICKETS "Data\\Tickets\\Ticket.csv"
 #define FILE_MANAGERS "Data\\Users\\Managers.csv"
-#define FILE_CATALOG "Data\\Catalogs\\Catalog.csv"
+#define FILE_CATALOGS "Data\\Catalogs\\Catalog.csv"
 #define FILE_CUSTOMERS "Data\\Users\\Customers.csv"
 
 
@@ -34,6 +34,7 @@
 #define FOLDER_DATA_ORDERS "Data\\Orders\\"
 #define FOLDER_DATA_TICKETS "Data\\Tickets\\"
 #define FOLDER_DATA_CATALOGS "Data\\Catalogs\\"
+#define FOLDER_DATA_TICKETS_TICKETSUMMARY "Data\\Tickets\\TicketSummary\\"
 #define FOLDER_DATA_ORDERS_ORDERSUMMARY "Data\\Orders\\OrderSummary\\"
 
 
@@ -124,13 +125,13 @@ void customerMenu();
 void customerShop(Cart* cart);
 void viewCart(Cart* cart);
 void printCart(Cart* cart);
-void openTicket(); //Need To Improve
+void openTicket();
 void addToCart(Cart* cart, Product product);
 void removeFromCart(Cart* cart, int index);
 void changeQuantity(Cart* cart, int index, int newQuantity);
-void writeOrder(Cart* cart, char* id);
-void finishOrder(Cart* cart, char* id);
-void updatePoints(char* id, float newPoints);
+void writeOrder(Cart* cart);
+void finishOrder(Cart* cart);
+void updatePoints(float newPoints);
 Product selectByCategory();
 
 
@@ -140,7 +141,9 @@ void managerStoreActions();
 void addToCatalog();
 void deleteFromCatalog(Product* p);
 void updateCatalog(Product* p, int userQuantity);
-void seeTickets(); //Need To Improve
+void seeTickets();
+void printTicket(int ticketId);
+void changeTicketStatus(int id);
 void printRevenue();
 void showOrders();
 void printOrder(int orderId);
@@ -158,6 +161,7 @@ void profile();
 void printProfile();
 void updateProfile();
 char* getNextOrderIdStr();
+char* getNextTicketIdStr();
 bool doesProductExist(char* filename, char* _ProductName, char* _Company);
 Product selectProduct(Cart cart);
 Product readProduct(char* filename, char* _ProductName, char* _Company);
