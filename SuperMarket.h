@@ -124,7 +124,7 @@ void customerMenu();
 void customerShop(Cart* cart);
 void viewCart(Cart* cart);
 void printCart(Cart* cart);
-void openTicket();
+void openTicket(); //Need To Improve
 void addToCart(Cart* cart, Product product);
 void removeFromCart(Cart* cart, int index);
 void changeQuantity(Cart* cart, int index, int newQuantity);
@@ -140,7 +140,7 @@ void managerStoreActions();
 void addToCatalog();
 void deleteFromCatalog(Product* p);
 void updateCatalog(Product* p, int userQuantity);
-void seeTickets(); //Work (add option to delete ticket after manager mark it)
+void seeTickets(); //Need To Improve
 void printRevenue();
 void showOrders();
 void printOrder(int orderId);
