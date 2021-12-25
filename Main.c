@@ -301,6 +301,7 @@ bool verifyId(Details* d)
 						break;
 
 					case 2:
+						openTicket();
 						printf("We Are Sry To Hear, Your Report Will Be Treated\nGoodbye\n");
 						exit(1);
 
@@ -673,7 +674,7 @@ void openTicket()
 	fprintf(file, "%s,%s,%d/%d/%d,WAITING\n", ticketNum, Identity, date.day, date.month, date.year);
 	fclose(file);
 
-	printf("Ticket Been Send, Have A Good Day\n\n");
+	printf("Ticket Been Sent, Have A Good Day\n\n");
 }
 void addToCart(Cart* cart, Product product) 
 {	
