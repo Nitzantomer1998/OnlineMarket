@@ -380,9 +380,9 @@ bool verifyPhone(Details* d)
 }
 bool termsAndConditions() 
 {
-	printf("Terms and Conditions\n\n1. The Site, including any content and / or service available through it, is provided to you 'As It Is'. Although the Company takes all efforts to present the Site or through it as accurate and reliable information as possible, the Company is not and will not be responsible, directly or indirectly, for the availability, veracity, reliability and/or accuracy of the content appearing on the Site, and reliance on any content displayed on or through the Site is at your full responsibility.\n\n2. You may use the Site and the content available through it for private and personal purposes only. The content of the Site does not grant you any rights other than those set forth in these Terms, which constitutes an agreement for all intents and purposes between you and the Company.\n\n3. The content of the Website may not be used as a basis for the purpose of making financial, legal, personal and/or other decisions on your part. Any action taken by you based on this Content is done at your sole discretion and at your own responsibility. Products, descriptions, design, colors or the appearance of products and services described or displayed on the site are for illustration purposes only, in order to simulate the user's desired product in the closest and best way. If you have identified a significant gap between the visibility of the actual requested product and the product appearing on the site, please contact us to correct it, at the company's sole discretion. In any case, the Company shall not be liable in connection with any product and/or recipe and/or recommendations detailed or displayed on the website and through it.\n\n");
-
-	int selection = 0;
+	printf("Terms and Conditions\n\n'1' The Site, Including Any Content And/Or Service Available Through It, Is Provided To You 'As It Is'.\nAlthough The Company Takes All Efforts To Present The Site Or Through It As Accurate And Reliable Information As Possibl\nThe Company Is Not And Will Not Be Responsible, Directly Or Indirectly, For The Availability, Veracity, Reliability\nAnd/Or Accuracy Of The Content Appearing On The Site, And Reliance On Any Content Displayed On Or Through The Site Is\nYour Full Responsibility.\n\n'2' You May Use The Site And The Content Available Through It For Private And Personal Purposes Only.\nHe Content Of The Site Does Not Grant You Any Rights Other Than Those Set Forth In These Terms\nWhich Constitutes An Agreement For All Intents And Purposes Between You And The Company.\n\n'3' The Content Of The Website May Not Be Used As A Basis For The Purpose Of Making Financial, Legal, Personal\nAnd / Or Other Decisions On Your Part. Any Action Taken By You Based On This Content Is Done At Your Sole Discretion\nAnd At Your Own Responsibility.\nProducts, Descriptions, Design, Colors Or The Appearance Of Products And Services Described Or Displayed On The Site\nAre For Illustration Purposes Only, In Order To Simulate The User's Desired Product In The Closest And Best Way.\nIf You Have Identified A Significant Gap Between The Visibility Of The Actual Requested Product And The Product\nAppearing On The Site, Please Contact Us To Correct It, At The Company's Sole Discretion.\nIn any case, the Company Shall Not Be Liable In Connection With Any Product And / or Recipe And / Or Recommendations\nDetailed Or Displayed On The Website And Through It.\n\n");
+																																																																																																																																																																																																																																																																																																																																																																																																					
+	int selection = 0;			
 	while (!(selection >= 1 && selection <= 2))
 	{
 		printf("Do You Agree To The Terms And Conditions\n'1' Yes     '2' No\nInput --> ");
@@ -1718,7 +1718,8 @@ void registerUserType(UserType type)
 
 	if (!termsAndConditions())
 		return;
-
+	
+	printf("You've Successfully Registered\n\n\n");
 	writeUserType(&d, type);
 }
 void loginUser() 
@@ -1858,6 +1859,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", d.name, _Id, _Password, _Points, _Phone);
 						loop = false;
+						printf("You've Successfully Updated Your Name\n\n");
 						break;
 
 					case 2:
@@ -1867,6 +1869,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, d.ID, _Password, _Points, _Phone);
 						loop = false;
+						printf("You've Successfully Updated Your ID\n\n");
 						break;
 
 					case 3:
@@ -1876,6 +1879,7 @@ void updateProfile()
 						
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, _Id, d.password, _Points, _Phone);
 						loop = false;
+						printf("You've Successfully Updated Your Password\n\n");
 						break;
 
 					case 4:
@@ -1885,6 +1889,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, _Id, _Password, _Points, d.phone);
 						loop = false;
+						printf("You've Successfully Updated Your Phone\n\n");
 						break;
 
 					case 5:
@@ -1944,6 +1949,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s\n", d.name, _Id, _Password, _Phone);
 						loop = false;
+						printf("You've Successfully Updated Your Name\n\n");
 						break;
 
 					case 2:
@@ -1953,6 +1959,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, d.ID, _Password, _Phone);
 						loop = false;
+						printf("You've Successfully Updated Your ID\n\n");
 						break;
 
 					case 3:
@@ -1962,6 +1969,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, _Id, d.password, _Phone);
 						loop = false;
+						printf("You've Successfully Updated Your Password\n\n");
 						break;
 
 					case 4:
@@ -1971,6 +1979,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, _Id, _Password, d.phone);
 						loop = false;
+						printf("You've Successfully Updated Your Phone\n\n");
 						break;
 
 					case 5:
@@ -2256,6 +2265,6 @@ int main()
 	checkFolder();
 	checkFiles();
 	welcomeScreen();
-
+	
 	return 0;
 }
