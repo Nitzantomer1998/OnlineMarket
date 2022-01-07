@@ -22,7 +22,7 @@
 #define MANAGER_CODE 1111
 #define PHONE_NUM_LEN 10
 #define MIN_PASSWORD_LEN 6
-#define CREADIT_CARD 16
+#define CREDIT_CARD 16
 
 
 // Files
@@ -120,10 +120,9 @@ bool verifyId(Details* d);
 bool verifyAge();
 bool verifyPhone(Details* d);
 bool termsAndConditions();
-bool verifyCreaditCard();
+bool verifyCreditCard();
 bool verifyCCV();
-bool verifyMonth();
-bool verifyYear();
+bool verifyDate();
 
 
 //CustomerMenu
