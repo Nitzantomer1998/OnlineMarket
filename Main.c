@@ -177,7 +177,7 @@ bool verifyName(Details* d)
 	{
 		if (!((string[i] >= 'a' && string[i] <= 'z') || (string[i] >= 'A' && string[i] <= 'Z'))) 
 		{
-			printf("Name Can Contain Only English Alphabet\n\n");
+			printf(ANSI_COLOR_RED   "Name Can Contain Only English Alphabet\n\n"   ANSI_COLOR_RESET);
 			d->name = NULL;
 			return false;
 		}
@@ -199,7 +199,7 @@ bool verifyPassword(Details* d)
 
 	if (strlen(pString) < MIN_PASSWORD_LEN) 
 	{
-		printf("Password Must Contain At Least Six Characters\n\n");
+		printf(ANSI_COLOR_RED   "Password Must Contain At Least Six Characters\n\n"   ANSI_COLOR_RESET);
 		return false;
 	}
 
@@ -218,16 +218,16 @@ bool verifyPassword(Details* d)
 
 		else
 		{
-			printf("Password Contain Only English Alphabet\n\n");
+			printf(ANSI_COLOR_RED   "Password Contain Only English Alphabet\n\n"   ANSI_COLOR_RESET);
 			return false;
 		}
 	}
 
 	if (!numbers)
-		printf("Password Must Contain At Least One Number\n\n");
+		printf(ANSI_COLOR_RED   "Password Must Contain At Least One Number\n\n"   ANSI_COLOR_RESET);
 
 	if (!letters)
-		printf("Password Must Contain At Least One Letter\n\n");
+		printf(ANSI_COLOR_RED   "Password Must Contain At Least One Letter\n\n"   ANSI_COLOR_RESET);
 
 	if (letters && numbers) 
 	{
@@ -302,7 +302,7 @@ bool verifyId(Details* d)
 						exit(1);
 
 					default:
-						printf("Invalid Input, Try Between [1 To 2]\n\n");
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
 						break;
 					}
 				}
@@ -315,14 +315,14 @@ bool verifyId(Details* d)
 	
 		else
 		{
-			printf("Incorrect ID\n\n");
+			printf(ANSI_COLOR_RED   "Incorrect ID\n\n"   ANSI_COLOR_RESET);
 			return false;
 		}
 	}
 
 	else
 	{
-		printf("ID Must Contain Nine Digits\n\n");
+		printf(ANSI_COLOR_RED   "ID Must Contain [8 To 9] Digits\n\n"   ANSI_COLOR_RESET);
 		return false;
 	}
 }
@@ -335,13 +335,14 @@ bool verifyAge()
 
 	if (age < LEGAL_AGE) 
 	{
-		printf("We Are Sry, The Minimum Age Is Sixteen\n\n");
+		printf(ANSI_COLOR_RED   "We Are Sry, The Minimum Age Is Sixteen\n\n"   ANSI_COLOR_RESET);
 		return false;
 	}
 
 	if (age > 120)
 	{
-		printf("Sry If You Are Trully  %d Years Old You Probably Death. Good Day\n\n", age);
+		printf(ANSI_COLOR_RED   "Sry If You Are Trully  %d Years Old You Probably Death. Good Day\n\n", age);  
+		printf(ANSI_COLOR_RESET);
 		return false;
 	}
 
@@ -358,7 +359,7 @@ bool verifyPhone(Details* d)
 
 	if (strlen(pString) != PHONE_NUM_LEN) 
 	{
-		printf("Phone Number Must Contain Ten Digits\n\n");
+		printf(ANSI_COLOR_RED   "Phone Number Must Contain Ten Digits\n\n"   ANSI_COLOR_RESET);
 		return false;
 	}
 
@@ -366,7 +367,7 @@ bool verifyPhone(Details* d)
 	{
 		if (!(pString[i] >= '0' && pString[i] <= '9')) 
 		{
-			printf("Phone Number Contain Only Digits\n\n");
+			printf(ANSI_COLOR_RED   "Phone Number Contain Only Digits\n\n"   ANSI_COLOR_RESET);
 			return false;
 		}
 	}
@@ -385,7 +386,7 @@ bool termsAndConditions()
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 2))
-			printf("Invalid Input, Try Between [1 To 2]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
 	}
 	
 	printf("\n");
@@ -406,7 +407,7 @@ bool verifyCreaditCard()
 
 	if (strlen(pCreaditCard) != CREADIT_CARD)
 	{
-		printf("Creadit Card Must Contain Sixteen Digits\n\n");
+		printf(ANSI_COLOR_RED   "Creadit Card Must Contain Sixteen Digits\n\n"   ANSI_COLOR_RESET);
 		return false;
 	}
 
@@ -416,7 +417,7 @@ bool verifyCreaditCard()
 	{
 		if (!(pCreaditCard[i] >= '0' && pCreaditCard[i] <= '9'))
 		{
-			printf("Creadit Card Contain Only Digits\n\n");
+			printf(ANSI_COLOR_RED   "Creadit Card Contain Only Digits\n\n"   ANSI_COLOR_RESET);
 			return false;
 		}
 	}
@@ -432,7 +433,7 @@ bool verifyCCV()
 		CCV = stringToInt();
 
 		if (!(CCV >= 100 && CCV <= 999))
-			printf("Invalid Input, Try Between [100 To 999]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [100 To 999]\n\n"   ANSI_COLOR_RESET);
 	}
 	
 	return true;
@@ -446,7 +447,7 @@ bool verifyMonth()
 		Month = stringToInt();
 
 		if (!(Month >= 1 && Month <= 12))
-			printf("Invalid Input, Try Between [1 To 12]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 12]\n\n"   ANSI_COLOR_RESET);
 	}
 	
 	return true;
@@ -460,7 +461,7 @@ bool verifyYear()
 		Year = stringToInt();
 
 		if (!(Year >= 2022 && Year <= 2035))
-			printf("Invalid Input, Try Between [2022 To 2035]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [2022 To 2035]\n\n"   ANSI_COLOR_RESET);
 	}
 	
 	return true;
@@ -502,12 +503,12 @@ void customerMenu()
 			break;
 
 		case 6:
-			printf("You've Successfully Logged Out\n\n");
+			printf(ANSI_COLOR_GREEN   "You've Successfully Logged Out\n\n"   ANSI_COLOR_RESET);
 			loop = false;
 			break;
 
 		default:
-			printf("Invalid Input, Try Between [1 To 6]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 6]\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -548,7 +549,7 @@ void customerShop(Cart* cart)
 			break;
 
 		default:
-			printf("Invalid Input, Try Between [1 To 3]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -559,8 +560,11 @@ void customerShop(Cart* cart)
 		printf("\nProduct Quantity\nInput --> ");
 		selectedQuantity = stringToInt();
 
-		if (!(selectedQuantity >= 1 && selectedQuantity <= product.quantity)) 
-			printf("Invalid Input, Try Between [1 To %d]\n\n", product.quantity);
+		if (!(selectedQuantity >= 1 && selectedQuantity <= product.quantity))
+		{
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n\n", product.quantity);
+			printf(ANSI_COLOR_RESET);
+		}
 	}
 	
 	Product addedProduct = product;
@@ -589,7 +593,10 @@ void viewCart(Cart* cart)
 				optionA = stringToInt();
 
 				if (!(optionA >= 1 && optionA <= cart->itemsCount))
-					printf("Invalid Input, Try Between [1 To %d]\n\n", cart->itemsCount);
+				{
+					printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n\n", cart->itemsCount);
+					printf(ANSI_COLOR_RESET);
+				}
 			}
 			
 			optionB = 0;
@@ -599,7 +606,7 @@ void viewCart(Cart* cart)
 				optionB = stringToInt();
 
 				if (!(optionB >= 1 && optionB <= 3)) 
-					printf("Invalid Input, Try Between [1 To 3]\n\n");
+					printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
 			}
 
 			if (optionB == 1) 
@@ -611,7 +618,7 @@ void viewCart(Cart* cart)
 					optionB = stringToInt();
 
 					if (optionB <= 0)
-						printf("Invalid Input, Try Between [1 Or Greater]\n\n");
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n\n"   ANSI_COLOR_RESET);
 				}
 				changeQuantity(cart, optionA - 1, optionB);
 			}
@@ -627,7 +634,7 @@ void viewCart(Cart* cart)
 			return;
 
 		default:
-			printf("Invalid Input, Try Between [1 To 2]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -776,15 +783,16 @@ void writeOrder(Cart* cart)
 			selection = stringToInt();
 
 			if (!(selection > 0 && selection <= 2))
-				printf("Invalid Input, Try Again\n\n");
+				printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
 
 			if (selection == 1)
 				updatePoints(user->points > total ? user->points - total : 0);
 		}
 	}
-	printf("In This Purchase You've Earned %.2f Market Points\n", total * 0.03);
+	printf(ANSI_COLOR_GREEN   "In This Purchase You've Earned %.2f Market Points\n", total * 0.03);
+	printf(ANSI_COLOR_RESET);
 	updatePoints(user->points + total * 0.03);
-	printf("Your Purchase Was Successful\n\n");
+	printf(ANSI_COLOR_GREEN   "Your Purchase Was Successful\n\n"   ANSI_COLOR_RESET);
 }
 void finishOrder(Cart* cart) 
 {
@@ -798,8 +806,7 @@ void finishOrder(Cart* cart)
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 2))
-			printf("Invalid Input, Try Between [1 To 2]\n\n");
-
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
 	}
 	
 	if (selection == 2)
@@ -883,7 +890,10 @@ Product selectByCategory()
 		selection = stringToInt();
 		
 		if (!(selection >= 1 && selection <= count))
-			printf("Invalid Input, Try Between [1 To %d]\n\n", count);
+		{
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n\n", count);
+			printf(ANSI_COLOR_RESET);
+		}
 	}
 
 	tempCart = retrieveProducts(false, NULL, categories[selection - 1]);
@@ -923,14 +933,14 @@ void managerMenu()
 		case 5:
 			seeTickets();
 			break;
-
+			
 		case 6:
-			printf("You've Successfully Logged Out\n\n");
+			printf(ANSI_COLOR_GREEN   "You've Successfully Logged Out\n\n"   ANSI_COLOR_RESET);
 			loop = false;
 			break;
 
 		default:
-			printf("Invalid Input, Try Between [1 To 6]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 6]\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -967,7 +977,7 @@ void managerStoreActions()
 			break;
 
 		default:
-			printf("Invalid Input, Try Between [1 To 4]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -1040,7 +1050,7 @@ void addToCatalog()
 		rProductPrice = stringToFloat();
 
 		if (rProductPrice <= 0)
-			printf("Invalid Input, Try Between [1 Or Greater]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n\n"   ANSI_COLOR_RESET);
 	}
 
 	int rProductQuantity = 0;
@@ -1113,7 +1123,7 @@ void updateCatalog(Product* p, int userQuantity)
 			selection = stringToInt();
 
 			if (!(selection >= 1 && selection <= 2))
-				printf("Invalid Input, Try Between [1 To 2]\n\n");
+				printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
 		}
 	}
 
@@ -1137,7 +1147,7 @@ void updateCatalog(Product* p, int userQuantity)
 					updatedPrice = stringToFloat();
 
 					if (updatedPrice <= 0)
-						printf("Invalid Input, Try Between [1 Or Greater]\n\n");
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n\n"   ANSI_COLOR_RESET);
 				}
 
 				sprintf(newPrice, "%.2f", updatedPrice);
@@ -1154,7 +1164,7 @@ void updateCatalog(Product* p, int userQuantity)
 						updatedQuantity = stringToInt();
 
 						if (updatedQuantity <= 0)
-							printf("Invalid Input, Try Between [1 Or Greater]\n\n");
+							printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n\n"   ANSI_COLOR_RESET);
 					}
 				}
 
@@ -1194,7 +1204,7 @@ void seeTickets()
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 3))
-			printf("Invalid Input, Try Between [1 To 3]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
 	}
 
 	FILE* file = fopen(FILE_TICKETS, "r");
@@ -1251,7 +1261,8 @@ void seeTickets()
 					return;
 				}
 			}
-			printf("Invalid Input, Try Between [0 To %d]\n\n", i - 1);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [0 To %d]\n\n", i - 1);
+			printf(ANSI_COLOR_RESET);
 		}
 	}
 
@@ -1295,7 +1306,7 @@ void seeTickets()
 					return;
 				}
 			}
-			printf("Invalid Input, Try Between [The Ticket No. Column]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [The Ticket No. Column]\n\n"   ANSI_COLOR_RESET);
 		}
 	}
 
@@ -1359,7 +1370,7 @@ void printRevenue()
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 4)) 
-			printf("Invalid Input, Try Between [1 To 4]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n\n"   ANSI_COLOR_RESET);
 	}
 	
 	if (selection == 4)
@@ -1419,7 +1430,7 @@ void showOrders()
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 3))
-			printf("Invalid Input, Try Between [1 To 3]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
 	}
 	
 	FILE* file = fopen(FILE_ORDERS, "r");
@@ -1477,7 +1488,8 @@ void showOrders()
 					return;
 				}
 			}
-			printf("Invalid Input, Try Between [0 To %d]\n\n", i - 1);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [0 To %d]\n\n", i - 1);
+			printf(ANSI_COLOR_RESET);
 		}
 	}
 
@@ -1523,7 +1535,7 @@ void showOrders()
 					return;
 				}
 			}
-			printf("Invalid Input, Try Between [The Order No. Column]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [The Order No. Column]\n\n"   ANSI_COLOR_RESET);
 		}
 	}
 
@@ -1644,7 +1656,7 @@ void welcomeScreen()
 			break;
 
 		default:
-			printf("Invalid Input, Try Between [1 To 3]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -1675,17 +1687,18 @@ void registerStage()
 				registerUserType(manager);
 
 			else
-				printf("Wrong Code, GoodBye\n\n");
-
+				printf(ANSI_COLOR_RED   "Wrong Code, GoodBye\n\n"   ANSI_COLOR_RESET);
+			
 			loop = false;
 			break;
 
 		case 3:
 			loop = false;
+			printf("\n");
 			break;
 
 		default:
-			printf("Invalid Input, Try Between [1 To 3]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -1715,7 +1728,7 @@ void registerUserType(UserType type)
 	if (!termsAndConditions())
 		return;
 	
-	printf("You've Successfully Registered\n\n\n");
+	printf(ANSI_COLOR_GREEN   "You've Successfully Registered\n\n\n"   ANSI_COLOR_RESET);
 	writeUserType(&d, type);
 }
 void loginUser() 
@@ -1760,7 +1773,7 @@ void loginUser()
 	}
 
 	else
-		printf("Invalid Password\n\n");
+		printf(ANSI_COLOR_RED   "Invalid Password\n\n"   ANSI_COLOR_RESET);
 }
 void profile() 
 {
@@ -1790,7 +1803,7 @@ void profile()
 			break;
 
 		default:
-			printf("Invalid Input, Try Between [1 To 3]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -1855,7 +1868,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", d.name, _Id, _Password, _Points, _Phone);
 						loop = false;
-						printf("You've Successfully Updated Your Name\n\n");
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Name\n\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 2:
@@ -1865,7 +1878,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, d.ID, _Password, _Points, _Phone);
 						loop = false;
-						printf("You've Successfully Updated Your ID\n\n");
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your ID\n\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 3:
@@ -1875,7 +1888,7 @@ void updateProfile()
 						
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, _Id, d.password, _Points, _Phone);
 						loop = false;
-						printf("You've Successfully Updated Your Password\n\n");
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Password\n\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 4:
@@ -1885,7 +1898,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, _Id, _Password, _Points, d.phone);
 						loop = false;
-						printf("You've Successfully Updated Your Phone\n\n");
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Phone\n\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 5:
@@ -1894,7 +1907,7 @@ void updateProfile()
 						break;
 
 					default:
-						printf("Invalid Input, Try Between [1 To 4]\n\n");
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n\n"   ANSI_COLOR_RESET);
 						break;
 					}
 				}
@@ -1945,7 +1958,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s\n", d.name, _Id, _Password, _Phone);
 						loop = false;
-						printf("You've Successfully Updated Your Name\n\n");
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Name\n\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 2:
@@ -1955,7 +1968,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, d.ID, _Password, _Phone);
 						loop = false;
-						printf("You've Successfully Updated Your ID\n\n");
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your ID\n\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 3:
@@ -1965,7 +1978,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, _Id, d.password, _Phone);
 						loop = false;
-						printf("You've Successfully Updated Your Password\n\n");
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Password\n\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 4:
@@ -1975,7 +1988,7 @@ void updateProfile()
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, _Id, _Password, d.phone);
 						loop = false;
-						printf("You've Successfully Updated Your Phone\n\n");
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Phone\n\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 5:
@@ -1984,7 +1997,7 @@ void updateProfile()
 						break;
 
 					default:
-						printf("Invalid Input, Try Between [1 To 4]\n\n");
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n\n"   ANSI_COLOR_RESET);
 						break;
 					}
 				}
@@ -2100,7 +2113,10 @@ Product selectProduct(Cart cart)
 		res = stringToInt();
 
 		if (!(res >= 0 && res <= cart.itemsCount))
-			printf("Invalid Input, Try Between [0 To %d]\n\n", cart.itemsCount);
+		{
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [0 To %d]\n\n", cart.itemsCount);
+			printf(ANSI_COLOR_RESET);
+		}
 	}
 
 sort:
@@ -2130,7 +2146,11 @@ sort:
 			res = stringToInt();
 
 			if (!(res - 1 >= 0 && res - 1 < i))
-				printf("Invalid Input, Try Between [1 To %d]\n\n", i);
+			{
+				printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n\n", i);
+				printf(ANSI_COLOR_RESET);
+			}
+
 		}
 		return cart.products[res - 1];
 	}
