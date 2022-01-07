@@ -341,7 +341,7 @@ bool verifyAge()
 
 	if (age > 120)
 	{
-		printf(ANSI_COLOR_RED   "Sry If You Are Trully  %d Years Old You Probably Death. Good Day\n\n", age);  
+		printf(ANSI_COLOR_RED   "Sry If You Are Trully  %d Years Old You Probably Death. Good Day\n\n\n", age);  
 		printf(ANSI_COLOR_RESET);
 		return false;
 	}
@@ -377,7 +377,7 @@ bool verifyPhone(Details* d)
 }
 bool termsAndConditions() 
 {
-	printf("Terms and Conditions\n\n'1' The Site, Including Any Content And/Or Service Available Through It, Is Provided To You 'As It Is'.\nAlthough The Company Takes All Efforts To Present The Site Or Through It As Accurate And Reliable Information As Possibl\nThe Company Is Not And Will Not Be Responsible, Directly Or Indirectly, For The Availability, Veracity, Reliability\nAnd/Or Accuracy Of The Content Appearing On The Site, And Reliance On Any Content Displayed On Or Through The Site Is\nYour Full Responsibility.\n\n'2' You May Use The Site And The Content Available Through It For Private And Personal Purposes Only.\nHe Content Of The Site Does Not Grant You Any Rights Other Than Those Set Forth In These Terms\nWhich Constitutes An Agreement For All Intents And Purposes Between You And The Company.\n\n'3' The Content Of The Website May Not Be Used As A Basis For The Purpose Of Making Financial, Legal, Personal\nAnd / Or Other Decisions On Your Part. Any Action Taken By You Based On This Content Is Done At Your Sole Discretion\nAnd At Your Own Responsibility.\nProducts, Descriptions, Design, Colors Or The Appearance Of Products And Services Described Or Displayed On The Site\nAre For Illustration Purposes Only, In Order To Simulate The User's Desired Product In The Closest And Best Way.\nIf You Have Identified A Significant Gap Between The Visibility Of The Actual Requested Product And The Product\nAppearing On The Site, Please Contact Us To Correct It, At The Company's Sole Discretion.\nIn any case, the Company Shall Not Be Liable In Connection With Any Product And / or Recipe And / Or Recommendations\nDetailed Or Displayed On The Website And Through It.\n\n");
+	printf("\nTerms and Conditions\n'1' The Site, Including Any Content And/Or Service Available Through It, Is Provided To You 'As It Is'.\nAlthough The Company Takes All Efforts To Present The Site Or Through It As Accurate And Reliable Information As Possibl\nThe Company Is Not And Will Not Be Responsible, Directly Or Indirectly, For The Availability, Veracity, Reliability\nAnd/Or Accuracy Of The Content Appearing On The Site, And Reliance On Any Content Displayed On Or Through The Site Is\nYour Full Responsibility.\n\n'2' You May Use The Site And The Content Available Through It For Private And Personal Purposes Only.\nHe Content Of The Site Does Not Grant You Any Rights Other Than Those Set Forth In These Terms\nWhich Constitutes An Agreement For All Intents And Purposes Between You And The Company.\n\n'3' The Content Of The Website May Not Be Used As A Basis For The Purpose Of Making Financial, Legal, Personal\nAnd / Or Other Decisions On Your Part. Any Action Taken By You Based On This Content Is Done At Your Sole Discretion\nAnd At Your Own Responsibility.\nProducts, Descriptions, Design, Colors Or The Appearance Of Products And Services Described Or Displayed On The Site\nAre For Illustration Purposes Only, In Order To Simulate The User's Desired Product In The Closest And Best Way.\nIf You Have Identified A Significant Gap Between The Visibility Of The Actual Requested Product And The Product\nAppearing On The Site, Please Contact Us To Correct It, At The Company's Sole Discretion.\nIn any case, the Company Shall Not Be Liable In Connection With Any Product And / or Recipe And / Or Recommendations\nDetailed Or Displayed On The Website And Through It.\n\n");
 																																																																																																																																																																																																																																																																																																																																																																																																					
 	int selection = 0;			
 	while (!(selection >= 1 && selection <= 2))
@@ -389,12 +389,11 @@ bool termsAndConditions()
 			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
 	}
 	
-	printf("\n");
 	if (selection == 1) return true;
 
 	else if (selection == 2)
 	{
-		printf("We Are Sry To Hear, Have A Good Day\n\n");
+		printf(ANSI_COLOR_RED   "We Are Sry To Hear, Have A Good Day\n\n"   ANSI_COLOR_RESET);
 		return false;
 	}
 }
@@ -429,11 +428,11 @@ bool verifyCCV()
 	int CCV = 0;
 	while (!(CCV >= 100 && CCV <= 999))
 	{
-		printf("\nCCV\nInput --> ");
+		printf("\n\nCCV\nInput --> ");
 		CCV = stringToInt();
 
 		if (!(CCV >= 100 && CCV <= 999))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [100 To 999]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [100 To 999]\n"   ANSI_COLOR_RESET);
 	}
 	
 	return true;
@@ -443,11 +442,11 @@ bool verifyMonth()
 	int Month = 0;
 	while (!(Month >= 1 && Month <= 12))
 	{
-		printf("\nExpiration Month\nInput --> ");
+		printf("\n\nExpiration Month\nInput --> ");
 		Month = stringToInt();
 
 		if (!(Month >= 1 && Month <= 12))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 12]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 12]\n"   ANSI_COLOR_RESET);
 	}
 	
 	return true;
@@ -457,11 +456,11 @@ bool verifyYear()
 	int Year = 0;
 	while (!(Year >= 2022 && Year <= 2035))
 	{
-		printf("\nExpiration Year\nInput --> ");
+		printf("\n\nExpiration Year\nInput --> ");
 		Year = stringToInt();
 
 		if (!(Year >= 2022 && Year <= 2035))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [2022 To 2035]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [2022 To 2035]\n"   ANSI_COLOR_RESET);
 	}
 	
 	return true;
@@ -477,7 +476,7 @@ void customerMenu()
 
 	while (loop) 
 	{
-		printf("\nCustomer Actions\n'1' Store     '2' Profile     '3' View Cart     '4' Finish Order     '5' Submit Ticket     '6' Log Out\nInput --> ");
+		printf("\n\nCustomer Actions\n'1' Store     '2' Profile     '3' View Cart     '4' Finish Order     '5' Submit Ticket     '6' Log Out\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection) 
@@ -503,12 +502,12 @@ void customerMenu()
 			break;
 
 		case 6:
-			printf(ANSI_COLOR_GREEN   "You've Successfully Logged Out\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_GREEN   "You've Successfully Logged Out\n\n\n"   ANSI_COLOR_RESET);
 			loop = false;
 			break;
 
 		default:
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 6]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 6]\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -523,13 +522,13 @@ void customerShop(Cart* cart)
 
 	while (loop)
 	{
-		printf("\nSearch Product By\n'1' Name/Company     '2' Category     '3' Show All Products\nInput --> ");
+		printf("\n\nSearch Product By\n'1' Name/Company     '2' Category     '3' Show All Products\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection)
 		{
 		case 1:
-			printf("\nName/Company\nInput --> ");
+			printf("\n\nName/Company\nInput --> ");
 			inputString(&search);
 			product = selectProduct(retrieveProducts(false, search, NULL));
 			if (product.quantity == 0)
@@ -549,7 +548,7 @@ void customerShop(Cart* cart)
 			break;
 
 		default:
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -557,16 +556,17 @@ void customerShop(Cart* cart)
 	int selectedQuantity = 0;
 	while (!(selectedQuantity >= 1 && selectedQuantity <= product.quantity)) 
 	{
-		printf("\nProduct Quantity\nInput --> ");
+		printf("\n\nProduct Quantity\nInput --> ");
 		selectedQuantity = stringToInt();
 
 		if (!(selectedQuantity >= 1 && selectedQuantity <= product.quantity))
 		{
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n\n", product.quantity);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n", product.quantity);
 			printf(ANSI_COLOR_RESET);
 		}
 	}
-	
+
+	printf(ANSI_COLOR_GREEN   "Product Added Successfully\n"   ANSI_COLOR_RESET);
 	Product addedProduct = product;
 	addedProduct.quantity = selectedQuantity;
 	addToCart(cart, addedProduct);
@@ -589,12 +589,12 @@ void viewCart(Cart* cart)
 			optionA = 0;
 			while (!(optionA >= 1 && optionA <= cart->itemsCount))
 			{
-				printf("\nSelect Product\nInput --> ");
+				printf("\n\nSelect Product\nInput --> ");
 				optionA = stringToInt();
 
 				if (!(optionA >= 1 && optionA <= cart->itemsCount))
 				{
-					printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n\n", cart->itemsCount);
+					printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n", cart->itemsCount);
 					printf(ANSI_COLOR_RESET);
 				}
 			}
@@ -602,11 +602,11 @@ void viewCart(Cart* cart)
 			optionB = 0;
 			while (!(optionB >= 1 && optionB <= 3)) 
 			{
-				printf("\nProduct Actions\n'1' Change Quantity     '2' Remove Product     '3' Return\nInput --> ");
+				printf("\n\nProduct Actions\n'1' Change Quantity     '2' Remove Product     '3' Return\nInput --> ");
 				optionB = stringToInt();
 
 				if (!(optionB >= 1 && optionB <= 3)) 
-					printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
+					printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n"   ANSI_COLOR_RESET);
 			}
 
 			if (optionB == 1) 
@@ -614,17 +614,22 @@ void viewCart(Cart* cart)
 				optionB = 0;
 				while (optionB <= 0) 
 				{
-					printf("\nNew Quantity\nInput --> ");
+					printf("\n\nNew Quantity\nInput --> ");
 					optionB = stringToInt();
 
 					if (optionB <= 0)
-						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n"   ANSI_COLOR_RESET);
 				}
+				printf(ANSI_COLOR_GREEN   "Product Quantity Successfully Changed\n"   ANSI_COLOR_RESET);
+
 				changeQuantity(cart, optionA - 1, optionB);
 			}
 
-			else if (optionB == 2) 
+			else if (optionB == 2)
+			{
+				printf(ANSI_COLOR_GREEN   "Product Removed Successfully\n"   ANSI_COLOR_RESET);
 				removeFromCart(cart, optionA - 1);
+			}
 
 			loop = false;
 			break;
@@ -634,14 +639,14 @@ void viewCart(Cart* cart)
 			return;
 
 		default:
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
 }
 void printCart(Cart* cart) 
 {
-	printf("\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "No.", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
+	printf("\n\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "No.", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
 
 	float total = 0;
 
@@ -677,7 +682,7 @@ void openTicket()
 	fprintf(file, "%s,%s,%d/%d/%d,WAITING\n", ticketNum, Identity, date.day, date.month, date.year);
 	fclose(file);
 
-	printf("Ticket Been Sent, Have A Good Day\n\n");
+	printf(ANSI_COLOR_GREEN   "Ticket Been Sent, Have A Good Day\n"   ANSI_COLOR_RESET);
 }
 void addToCart(Cart* cart, Product product) 
 {	
@@ -779,11 +784,11 @@ void writeOrder(Cart* cart)
 	{
 		while (!(selection > 0 && selection <= 2))
 		{
-			printf("\nAvailable Market Points --> %.2f\nWould You Like To Reedem Them?\n'1' Yes     '2' No\nInput --> ", user->points);
+			printf("\n\nAvailable Market Points --> %.2f\nWould You Like To Reedem Them?\n'1' Yes     '2' No\nInput --> ", user->points);
 			selection = stringToInt();
 
 			if (!(selection > 0 && selection <= 2))
-				printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
+				printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n"   ANSI_COLOR_RESET);
 
 			if (selection == 1)
 				updatePoints(user->points > total ? user->points - total : 0);
@@ -792,7 +797,7 @@ void writeOrder(Cart* cart)
 	printf(ANSI_COLOR_GREEN   "In This Purchase You've Earned %.2f Market Points\n", total * 0.03);
 	printf(ANSI_COLOR_RESET);
 	updatePoints(user->points + total * 0.03);
-	printf(ANSI_COLOR_GREEN   "Your Purchase Was Successful\n\n"   ANSI_COLOR_RESET);
+	printf(ANSI_COLOR_GREEN   "Your Purchase Was Successful\n"   ANSI_COLOR_RESET);
 }
 void finishOrder(Cart* cart) 
 {
@@ -802,7 +807,7 @@ void finishOrder(Cart* cart)
 	
 	while (!(selection >= 1 && selection <= 2))
 	{
-		printf("Are You Sure You Would Like To Finish The Order?\n'1' Yes     '2' No\nInput --> ");
+		printf("\nAre You Sure You Would Like To Finish The Order?\n'1' Yes     '2' No\nInput --> ");
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 2))
@@ -812,7 +817,7 @@ void finishOrder(Cart* cart)
 	if (selection == 2)
 		return;
 	
-	printf("\nPayment Process");
+	printf("\n\nPayment Process");
 
 	while (!(verifyCreaditCard()))
 		continue;
@@ -852,16 +857,15 @@ void updatePoints(float newPoints)
 	fputs(output, file);
 	fclose(file);
 	free(output);
-	printf("\nCurrent Market Points %.2f\n", newPoints);
 }
 Product selectByCategory() 
 {
-	printf("\n");
+	printf("\n\n");
 
 	Cart tempCart = retrieveProducts(false, NULL, NULL);
 	int count = 0;
 	char** categories = malloc(sizeof(char*) * tempCart.itemsCount);
-
+	printf("No.     CATEGORY\n");
 	for (int i = 0; i < tempCart.itemsCount; i++) 
 	{
 		bool flag = false;
@@ -878,7 +882,7 @@ Product selectByCategory()
 		{
 			categories[count] = malloc(sizeof(char) * strlen(tempCart.products[i].category) + sizeof(char));
 			strcpy(categories[count], tempCart.products[i].category);
-			printf("%d. %s\n", count + 1, categories[count]);
+			printf("%d       %s\n", count + 1, categories[count]);
 			count++;
 		}
 	}
@@ -891,7 +895,7 @@ Product selectByCategory()
 		
 		if (!(selection >= 1 && selection <= count))
 		{
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n\n", count);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To %d]\n\n\n", count);
 			printf(ANSI_COLOR_RESET);
 		}
 	}
@@ -909,7 +913,7 @@ void managerMenu()
 
 	while (loop)
 	{
-		printf("\nManager Actions\n'1' Store     '2' Profile     '3' View Orders     '4' Store Profits     '5' View Tickets     '6' Log Out\nInput --> ");
+		printf("\n\nManager Actions\n'1' Store     '2' Profile     '3' View Orders     '4' Store Profits     '5' View Tickets     '6' Log Out\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection) 
@@ -935,12 +939,12 @@ void managerMenu()
 			break;
 			
 		case 6:
-			printf(ANSI_COLOR_GREEN   "You've Successfully Logged Out\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_GREEN   "You've Successfully Logged Out\n\n\n"   ANSI_COLOR_RESET);
 			loop = false;
 			break;
 
 		default:
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 6]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 6]\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -953,23 +957,26 @@ void managerStoreActions()
 	
 	while (loop)
 	{
-		printf("\nStore Actions\n'1' Add Product     '2' Delete Product     '3' Update Product     '4' Return\nInput --> ");
+		printf("\n\nStore Actions\n'1' Add Product     '2' Delete Product     '3' Update Product     '4' Return\nInput --> ");
 		selection = stringToInt();
 
 		switch (selection)
 		{
 		case 1:
 			addToCatalog();
+			printf(ANSI_COLOR_GREEN   "Product Successfully Added\n"   ANSI_COLOR_RESET);
 			break;
 
 		case 2:
 			p = selectProduct(retrieveProducts(true, NULL, NULL));
 			deleteFromCatalog(&p);
+			printf(ANSI_COLOR_GREEN   "Product Successfully Deleted\n"   ANSI_COLOR_RESET);
 			break;
 
 		case 3:
 			p = selectProduct(retrieveProducts(true, NULL, NULL));
 			updateCatalog(&p, -1);
+			printf(ANSI_COLOR_GREEN   "Product Successfully Updated\n"   ANSI_COLOR_RESET);
 			break;
 
 		case 4:
@@ -977,14 +984,14 @@ void managerStoreActions()
 			break;
 
 		default:
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
 }
 void addToCatalog() 
 {
-	printf("\nAdding Product\n");
+	printf("\n\nAdding Product\n");
 
 	char* rProductName = NULL;
 	while (!rProductName) 
@@ -997,7 +1004,7 @@ void addToCatalog()
 			if (!(rProductName[i] >= 'a' && rProductName[i] <= 'z' || rProductName[i] >= 'A' && rProductName[i] <= 'Z'))
 			{
 				rProductName = NULL;
-				printf("Name Contain Only English Alphabet\n\n");
+				printf(ANSI_COLOR_RED   "Name Contain Only English Alphabet\n\n"   ANSI_COLOR_RESET);
 				break;
 			}
 		}
@@ -1011,7 +1018,7 @@ void addToCatalog()
 
 		if (doesProductExist(FILE_CATALOGS, rProductName, rProductCompany)) 
 		{
-			printf("Company Product Already In Stock\n");
+			printf(ANSI_COLOR_RED   "Company Product Already In Stock\n"   ANSI_COLOR_RESET);
 			return;
 		}
 
@@ -1020,7 +1027,7 @@ void addToCatalog()
 			if (!(rProductCompany[i] >= 'a' && rProductCompany[i] <= 'z' || rProductCompany[i] >= 'A' && rProductCompany[i] <= 'Z')) 
 			{
 				rProductCompany = NULL;
-				printf("Company Contain Only English Alphabet\n\n");
+				printf(ANSI_COLOR_RED   "Company Contain Only English Alphabet\n\n"   ANSI_COLOR_RESET);
 				break;
 			}
 		}
@@ -1037,7 +1044,7 @@ void addToCatalog()
 			if (!(rProductCategory[i] >= 'a' && rProductCategory[i] <= 'z' || rProductCategory[i] >= 'A' && rProductCategory[i] <= 'Z')) 
 			{
 				rProductCategory = NULL;
-				printf("Category Contain Only English Alphabet\n\n");
+				printf(ANSI_COLOR_RED   "Category Contain Only English Alphabet\n\n"   ANSI_COLOR_RESET);
 				break;
 			}
 		}
@@ -1060,7 +1067,7 @@ void addToCatalog()
 		rProductQuantity = stringToInt();
 
 		if (rProductQuantity <= 0)
-			printf("Invalid Input, Try Between [1 Or Greater]\n\n");
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n\n"   ANSI_COLOR_RESET);
 	}
 
 	char output[200] = { NULL };
@@ -1118,7 +1125,7 @@ void updateCatalog(Product* p, int userQuantity)
 	{
 		while (!(selection >= 1 && selection <= 2)) 
 		{
-			printf("\nProduct Actions\n");
+			printf("\n\nProduct Actions\n");
 			printf("'1' Update Price     '2' Update Quantity\nInput --> ");
 			selection = stringToInt();
 
@@ -1143,11 +1150,11 @@ void updateCatalog(Product* p, int userQuantity)
 			{
 				while (updatedPrice <= 0) 
 				{
-					printf("\nUpdate Price\nInput --> ");
+					printf("\n\nUpdate Price\nInput --> ");
 					updatedPrice = stringToFloat();
 
 					if (updatedPrice <= 0)
-						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n"   ANSI_COLOR_RESET);
 				}
 
 				sprintf(newPrice, "%.2f", updatedPrice);
@@ -1160,11 +1167,11 @@ void updateCatalog(Product* p, int userQuantity)
 				{
 					while (updatedQuantity <= 0) 
 					{
-						printf("\nUpdate Quantity\nInput --> ");
+						printf("\n\nUpdate Quantity\nInput --> ");
 						updatedQuantity = stringToInt();
 
 						if (updatedQuantity <= 0)
-							printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n\n"   ANSI_COLOR_RESET);
+							printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n"   ANSI_COLOR_RESET);
 					}
 				}
 
@@ -1200,11 +1207,11 @@ void seeTickets()
 	int selection = 0;
 	while (!(selection >= 1 && selection <= 3))
 	{
-		printf("\nTicket Actions\n'1' Print All Tickets     '2' Confirm/Unconfirmed Tickets     '3' Return\nInput --> ");
+		printf("\n\nTicket Actions\n'1' Print All Tickets     '2' Confirm/Unconfirmed Tickets     '3' Return\nInput --> ");
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 3))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n"   ANSI_COLOR_RESET);
 	}
 
 	FILE* file = fopen(FILE_TICKETS, "r");
@@ -1234,7 +1241,7 @@ void seeTickets()
 
 		tickets = malloc(sizeof(int) * count);
 
-		printf("\n%-15s%-15s%-15s%-15s\n", "Ticket No.", "Customer ID", "Date", "Status");
+		printf("\n\n%-15s%-15s%-15s%-15s\n", "Ticket No.", "Customer ID", "Date", "Status");
 
 		int i = 0;
 		while (fscanf(file, "%s", buffer) == 1)
@@ -1324,7 +1331,7 @@ void printTicket(int ticketId)
 	char str[100] = { NULL };
 	fscanf(file, "%*d,%s", str);
 
-	printf("\nTicket No. --> %d From %s", ticketId, str);
+	printf("\n\nTicket No. --> %d From %s", ticketId, str);
 
 	char buffer[500] = { NULL }, _Index[50] = { NULL }, _Report[400] = { NULL };
 	while (fgets(buffer, 500, file))
@@ -1358,7 +1365,7 @@ void changeTicketStatus(int id)
 	fputs(output, file);
 	fclose(file);
 	free(output);
-	printf("Ticket Has Been Approved\n\n");
+	printf(ANSI_COLOR_GREEN   "Ticket Has Been Approved\n" ANSI_COLOR_RESET);
 }
 void printRevenue() 
 {
@@ -1366,11 +1373,11 @@ void printRevenue()
 
 	while (!(selection >= 1 && selection <= 4)) 
 	{
-		printf("\nRevenue Actions\n'1' Last 30 Days     '2' Last 7 Days     '3' Current Day     '4' Return\nInput --> ");
+		printf("\n\nRevenue Actions\n'1' Last 30 Days     '2' Last 7 Days     '3' Current Day     '4' Return\nInput --> ");
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 4)) 
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n"   ANSI_COLOR_RESET);
 	}
 	
 	if (selection == 4)
@@ -1419,18 +1426,19 @@ void printRevenue()
 	}
 
 	fclose(file);
-	printf("Asked Revenue --> %.2f In %d Orders\n", revenue, ordersCount);
+	printf(ANSI_COLOR_GREEN   "Asked Revenue --> %.2f In %d Orders\n", revenue, ordersCount);
+	printf(ANSI_COLOR_RESET);
 }
 void showOrders() 
 {	
 	int selection = 0;
 	while (!(selection >= 1 && selection <= 3)) 
 	{
-		printf("\nOrder Actions\n'1' Print All Orders     '2' Confirm/Unconfirmed Orders     '3' Return\nInput --> ");
+		printf("\n\nOrder Actions\n'1' Print All Orders     '2' Confirm/Unconfirmed Orders     '3' Return\nInput --> ");
 		selection = stringToInt();
 
 		if (!(selection >= 1 && selection <= 3))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n"   ANSI_COLOR_RESET);
 	}
 	
 	FILE* file = fopen(FILE_ORDERS, "r");
@@ -1438,7 +1446,7 @@ void showOrders()
 
 	int count = 0, waitingCount = 0;
 	char buffer[500] = { NULL }, status[30] = { NULL };
-	
+
 	while (fscanf(file, "%s", buffer) == 1) 
 	{
 		sscanf(buffer, "%*[^,],%*[^,],%*[^,],%*[^,],%[^,]", status);
@@ -1461,7 +1469,7 @@ void showOrders()
 
 		orders = malloc(sizeof(int) * count);
 
-		printf("\n%-15s%-15s%-15s%-15s%-15s\n", "Order No. ", "Customer ID", "Total", "Date", "Status");
+		printf("\n\n%-15s%-15s%-15s%-15s%-15s\n", "Order No. ", "Customer ID", "Total", "Date", "Status");
 
 		int i = 0;
 		while (fscanf(file, "%s", buffer) == 1)
@@ -1500,7 +1508,7 @@ void showOrders()
 
 		waitingOrders = malloc(sizeof(int) * waitingCount);
 
-		printf("\n%-15s%-15s%-15s%-15s%-15s\n", "Order No. ", "Customer ID", "Total", "Date", "Status");
+		printf("\n\n%-15s%-15s%-15s%-15s%-15s\n", "Order No. ", "Customer ID", "Total", "Date", "Status");
 
 		int i = 0;
 
@@ -1554,7 +1562,7 @@ void printOrder(int orderId)
 	char str[100] = { NULL };
 	fscanf(file, "%*d,%d,%s", &count, str);
 
-	printf("\nOrder No. --> %d From %s\n", orderId, str);
+	printf("\n\nOrder No. --> %d From %s\n", orderId, str);
 	printf("%-14s%-15s%-15s%-15s%s", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
 
 	char name[100] = { NULL }, company[100] = { NULL }, category[100] = { NULL };
@@ -1598,7 +1606,7 @@ void changeOrderStatus(int id)
 	fputs(output, file);
 	fclose(file);
 	free(output);
-	printf("Order Has Been Approved\n\n");
+	printf(ANSI_COLOR_GREEN   "Order Has Been Approved\n"   ANSI_COLOR_RESET);
 }
 int calcDateDiff(Date d2) 
 {
@@ -1652,11 +1660,12 @@ void welcomeScreen()
 			break;
 
 		case 3:
+			printf(ANSI_COLOR_GREEN   "GoodBye\n\n"  ANSI_COLOR_RESET);
 			loop = false;
 			break;
 
 		default:
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
@@ -1668,7 +1677,7 @@ void registerStage()
 
 	while (loop)
 	{
-		printf("\nRegister As\n");
+		printf("\n\nRegister As\n");
 		printf("'1' Customer     '2' Manager     '3' Return\nInput --> ");
 		selection = stringToInt();
 
@@ -1698,14 +1707,14 @@ void registerStage()
 			break;
 
 		default:
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
 }
 void registerUserType(UserType type)
 {
-	printf("\nRegister Stage\n");
+	printf("\n\nRegister Stage\n");
 
 	Details d;
 
@@ -1733,7 +1742,7 @@ void registerUserType(UserType type)
 }
 void loginUser() 
 {
-	printf("\nLogin Stage\n");
+	printf("\n\nLogin Stage\n");
 
 	char* userId = NULL, * userPassword = NULL;
 
@@ -1746,7 +1755,7 @@ void loginUser()
 
 	if (type == none) 
 	{
-		printf("ID Does Not Exist\n\n");
+		printf(ANSI_COLOR_RED   "ID Does Not Exist\n\n\n"   ANSI_COLOR_RESET);
 		return;
 	}
 
@@ -1757,23 +1766,23 @@ void loginUser()
 
 	if (strcmp(readUser(type == customer ? FILE_CUSTOMERS : FILE_MANAGERS, readPassword)->password, userPassword) == 0) 
 	{
-		printf("You've Logged As A ");
+		printf(ANSI_COLOR_GREEN "You've Logged As A " ANSI_COLOR_RESET);
 
 		if (type == customer) 
 		{
-			printf("Customer\n");
+			printf(ANSI_COLOR_GREEN   "Customer\n"   ANSI_COLOR_RESET);
 			customerMenu();
 		}
 
 		if (type == manager) 
 		{
-			printf("Manager\n");
+			printf(ANSI_COLOR_GREEN   "Manager\n"   ANSI_COLOR_RESET);
 			managerMenu();
 		}
 	}
 
 	else
-		printf(ANSI_COLOR_RED   "Invalid Password\n\n"   ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_RED   "Invalid Password\n\n\n"   ANSI_COLOR_RESET);
 }
 void profile() 
 {
@@ -1782,7 +1791,7 @@ void profile()
 
 	while (loop)
 	{
-		printf("\nProfile Actions\n");
+		printf("\n\nProfile Actions\n");
 		printf("'1' Print Profile     '2' Update Profile     '3' Return\nInput --> ");
 		selection = stringToInt();
 
@@ -1803,14 +1812,14 @@ void profile()
 			break;
 
 		default:
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 3]\n"   ANSI_COLOR_RESET);
 			break;
 		}
 	}
 }
 void printProfile() 
 {
-	printf("\nUser Information\n");
+	printf(ANSI_COLOR_GREEN   "\n\nUser Information\n"   ANSI_COLOR_RESET);
 
 	Details* details = readUser(findUserType(Identity) == customer ? FILE_CUSTOMERS : FILE_MANAGERS, findUserType(Identity));
 	char _Name[100] = { NULL }, _ID[100] = { NULL }, _Password[100] = { NULL }, _Phone[100] = { NULL };
@@ -1830,7 +1839,6 @@ void printProfile()
 		float _Points = details->points;
 		printf("Supermarket Points --> %.2f\n", _Points);
 	}
-	printf("\n");
 }
 void updateProfile() 
 {
@@ -1855,50 +1863,54 @@ void updateProfile()
 			{
 				while (loop)
 				{
-					printf("\nUpdatable Actions\n");
+					printf("\n\nUpdatable Actions\n");
 					printf("'1' Name     '2' ID     '3' Password     '4' Phone     '5' Return\nInput --> ");
 					selection = stringToInt();
-
+	
 					switch (selection)
 					{
 					case 1:
+						printf("\n");
 						while (true)
 							if (verifyName(&d))
 								break;
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", d.name, _Id, _Password, _Points, _Phone);
 						loop = false;
-						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Name\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Name\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 2:
+						printf("\n");
 						while (true)
 							if (verifyId(&d))
 								break;
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, d.ID, _Password, _Points, _Phone);
 						loop = false;
-						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your ID\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your ID\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 3:
+						printf("\n");
 						while (true)
 							if (verifyPassword(&d))
 								break;
 						
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, _Id, d.password, _Points, _Phone);
 						loop = false;
-						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Password\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Password\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 4:
+						printf("\n");
 						while (true)
 							if (verifyPhone(&d))
 								break;
 
 						fprintf(Temp, "%s,%s,%s,%s,%s\n", _Name, _Id, _Password, _Points, d.phone);
 						loop = false;
-						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Phone\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Phone\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 5:
@@ -1907,7 +1919,7 @@ void updateProfile()
 						break;
 
 					default:
-						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n"   ANSI_COLOR_RESET);
 						break;
 					}
 				}
@@ -1945,50 +1957,54 @@ void updateProfile()
 			{
 				while (loop)
 				{
-					printf("\nUpdatable Actions\n");
+					printf("\n\nUpdatable Actions\n");
 					printf("'1' Name     '2' ID     '3' Password     '4' Phone     '5' Return\nInput --> ");
 					selection = stringToInt();
 
 					switch (selection)
 					{
 					case 1:
+						printf("\n");
 						while (true)
 							if (verifyName(&d))
 								break;
 
 						fprintf(Temp, "%s,%s,%s,%s\n", d.name, _Id, _Password, _Phone);
 						loop = false;
-						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Name\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Name\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 2:
+						printf("\n");
 						while (true)
 							if (verifyId(&d))
 								break;
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, d.ID, _Password, _Phone);
 						loop = false;
-						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your ID\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your ID\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 3:
+						printf("\n");
 						while (true)
 							if (verifyPassword(&d))
 								break;
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, _Id, d.password, _Phone);
 						loop = false;
-						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Password\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Password\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 4:
+						printf("\n");
 						while (true)
 							if (verifyPhone(&d))
 								break;
 
 						fprintf(Temp, "%s,%s,%s,%s\n", _Name, _Id, _Password, d.phone);
 						loop = false;
-						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Phone\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_GREEN   "You've Successfully Updated Your Phone\n"   ANSI_COLOR_RESET);
 						break;
 
 					case 5:
@@ -1997,7 +2013,7 @@ void updateProfile()
 						break;
 
 					default:
-						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n\n"   ANSI_COLOR_RESET);
+						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 4]\n"   ANSI_COLOR_RESET);
 						break;
 					}
 				}
@@ -2108,7 +2124,7 @@ Product selectProduct(Cart cart)
 
 	while (!(res >= 0 && res <= cart.itemsCount))
 	{
-		printf("\nAvailable Actions\n");
+		printf("\n\nAvailable Actions\n");
 		printf("'0' Sort By Ascending Price     '1 To %d' Select Product\nInput --> ", cart.itemsCount);
 		res = stringToInt();
 
@@ -2219,7 +2235,7 @@ Cart retrieveProducts(bool returnAll, char* search, char* searchCategory)
 
 	if (count == 0)
 	{
-		printf("Product/Company Does Not Exist In Our Catalog\n\n");
+		printf(ANSI_COLOR_RED   "Product/Company Does Not Exist In Our Catalog\n"   ANSI_COLOR_RESET);
 		return cart;
 	}
 
