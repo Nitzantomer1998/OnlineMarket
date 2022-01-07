@@ -193,6 +193,7 @@ bool verifyName(Details* d)
 bool verifyPassword(Details* d) 
 {
 	char* pString = NULL;
+	char* reString = NULL;
 
 	printf("Password --> ");
 	inputString(&pString);
@@ -231,8 +232,15 @@ bool verifyPassword(Details* d)
 
 	if (letters && numbers) 
 	{
-		d->password = pString;
-		return true;
+		printf("Re Enter Password --> ");
+		inputString(&reString);
+		if (strcmp(pString, reString) == 0)
+		{
+			d->password = pString;
+			return true;
+		}
+		printf(ANSI_COLOR_RED   "Password Doesnt Match\n\n"   ANSI_COLOR_RESET);
+		return false;
 	}
 
 	return false;
@@ -397,26 +405,26 @@ bool termsAndConditions()
 		return false;
 	}
 }
-bool verifyCreaditCard()
+bool verifyCreditCard()
 {
-	char* pCreaditCard = NULL;
+	char* pCreditCard = NULL;
 
-	printf("\nCreadit Card (Without Spaces)\nInput --> ");
-	inputString(&pCreaditCard);
+	printf("\nCredit Card (Without Spaces)\nInput --> ");
+	inputString(&pCreditCard);
 
-	if (strlen(pCreaditCard) != CREADIT_CARD)
+	if (strlen(pCreditCard) != CREDIT_CARD)
 	{
-		printf(ANSI_COLOR_RED   "Creadit Card Must Contain Sixteen Digits\n\n"   ANSI_COLOR_RESET);
+		printf(ANSI_COLOR_RED   "Credit Card Must Contain Sixteen Digits\n\n"   ANSI_COLOR_RESET);
 		return false;
 	}
 
 	int numbers = 0;
 
-	for (int i = 0; i < strlen(pCreaditCard); i++)
+	for (int i = 0; i < strlen(pCreditCard); i++)
 	{
-		if (!(pCreaditCard[i] >= '0' && pCreaditCard[i] <= '9'))
+		if (!(pCreditCard[i] >= '0' && pCreditCard[i] <= '9'))
 		{
-			printf(ANSI_COLOR_RED   "Creadit Card Contain Only Digits\n\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Credit Card Contain Only Digits\n\n"   ANSI_COLOR_RESET);
 			return false;
 		}
 	}
@@ -437,32 +445,44 @@ bool verifyCCV()
 	
 	return true;
 }
-bool verifyMonth()
+bool verifyDate()
 {
+	printf("\n\nCredit Card Date");
+
 	int Month = 0;
 	while (!(Month >= 1 && Month <= 12))
 	{
-		printf("\n\nExpiration Month\nInput --> ");
+		printf("\nExpiration Month\nInput --> ");
 		Month = stringToInt();
 
 		if (!(Month >= 1 && Month <= 12))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 12]\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 12]\n\n"   ANSI_COLOR_RESET);
 	}
-	
-	return true;
-}
-bool verifyYear()
-{
+
 	int Year = 0;
-	while (!(Year >= 2022 && Year <= 2035))
+	while (!(getCurrentDate().year <= Year && Year <= 2035))
 	{
 		printf("\n\nExpiration Year\nInput --> ");
 		Year = stringToInt();
 
-		if (!(Year >= 2022 && Year <= 2035))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [2022 To 2035]\n"   ANSI_COLOR_RESET);
+		if (!(getCurrentDate().year <= Year && Year <= 2035))
+		{
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [%d To 2035]\n", getCurrentDate().year);
+			printf(ANSI_COLOR_RESET);
+		}
 	}
 	
+	Date date = getCurrentDate();
+	
+	if (date.year == Year)
+	{
+		if (date.month >= Month)
+		{
+			printf(ANSI_COLOR_RED   "The Card Is Expired\n"   ANSI_COLOR_RESET);
+			return false;
+		}
+	}
+
 	return true;
 }
 
@@ -778,25 +798,29 @@ void writeOrder(Cart* cart)
 	fclose(file);
 	
 	Details* user = readUser(FILE_CUSTOMERS, customer);
-	
+	float _Points = user->points;
 	int selection = 0;
-	if (user->points > 0)
+	if (_Points > 0)
 	{
 		while (!(selection > 0 && selection <= 2))
 		{
-			printf("\n\nAvailable Market Points --> %.2f\nWould You Like To Reedem Them?\n'1' Yes     '2' No\nInput --> ", user->points);
+			printf("\n\nAvailable Market Points --> %.2f\nWould You Like To Reedem Them?\n'1' Yes     '2' No\nInput --> ", _Points);
 			selection = stringToInt();
 
 			if (!(selection > 0 && selection <= 2))
 				printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n"   ANSI_COLOR_RESET);
 
 			if (selection == 1)
-				updatePoints(user->points > total ? user->points - total : 0);
+			{
+				updatePoints(_Points >= total ? _Points - total : 0);
+				_Points = _Points >= total ? _Points - total : 0;
+			}
 		}
 	}
+
 	printf(ANSI_COLOR_GREEN   "In This Purchase You've Earned %.2f Market Points\n", total * 0.03);
 	printf(ANSI_COLOR_RESET);
-	updatePoints(user->points + total * 0.03);
+	updatePoints(_Points + total * 0.03);
 	printf(ANSI_COLOR_GREEN   "Your Purchase Was Successful\n"   ANSI_COLOR_RESET);
 }
 void finishOrder(Cart* cart) 
@@ -819,16 +843,13 @@ void finishOrder(Cart* cart)
 	
 	printf("\n\nPayment Process");
 
-	while (!(verifyCreaditCard()))
+	while (!(verifyCreditCard()))
 		continue;
 
 	while (!(verifyCCV()))
 		continue;
 
-	while (!verifyMonth())
-		continue;
-
-	while (!(verifyYear()))
+	while (!(verifyDate()))
 		continue;
 	
 	writeOrder(cart);
@@ -1822,6 +1843,7 @@ void printProfile()
 	printf(ANSI_COLOR_GREEN   "\n\nUser Information\n"   ANSI_COLOR_RESET);
 
 	Details* details = readUser(findUserType(Identity) == customer ? FILE_CUSTOMERS : FILE_MANAGERS, findUserType(Identity));
+	float _Points = details->points;
 	char _Name[100] = { NULL }, _ID[100] = { NULL }, _Password[100] = { NULL }, _Phone[100] = { NULL };
 	
 	strcpy(_Name, details->name);
@@ -1836,7 +1858,6 @@ void printProfile()
 
 	if (findUserType(Identity) == customer)
 	{
-		float _Points = details->points;
 		printf("Supermarket Points --> %.2f\n", _Points);
 	}
 }
