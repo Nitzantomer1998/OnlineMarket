@@ -121,7 +121,7 @@ bool verifyAge();
 bool verifyPhone(Details* d);
 bool termsAndConditions();
 bool verifyCreditCard();
-bool verifyCCV();
+bool verifyCVV();
 bool verifyDate();
 
 
