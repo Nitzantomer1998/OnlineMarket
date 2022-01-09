@@ -7,7 +7,7 @@ void inputString(char** _Str)
 {
 	char string[100] = { NULL };
 
-	scanf_s("%s", string, 100);
+	scanf_s(" %[^\n]", string, 100);
 	*_Str = malloc(strlen(string) * sizeof(char) + sizeof(char));
 	strcpy(*_Str, string);
 }
@@ -409,7 +409,7 @@ bool verifyCreditCard()
 {
 	char* pCreditCard = NULL;
 
-	printf("\nCredit Card (Without Spaces)\nInput --> ");
+	printf("\nCredit Card Digits --> ");
 	inputString(&pCreditCard);
 
 	if (strlen(pCreditCard) != CREDIT_CARD)
@@ -436,23 +436,21 @@ bool verifyCVV()
 	int CVV = 0;
 	while (!(CVV >= 100 && CVV <= 999))
 	{
-		printf("\n\nCVV\nInput --> ");
+		printf("CVV --> ");
 		CVV = stringToInt();
 
 		if (!(CVV >= 100 && CVV <= 999))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [100 To 999]\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [100 To 999]\n\n"   ANSI_COLOR_RESET);
 	}
 	
 	return true;
 }
 bool verifyDate()
 {
-	printf("\n\nCredit Card Date");
-
 	int Month = 0;
 	while (!(Month >= 1 && Month <= 12))
 	{
-		printf("\nExpiration Month\nInput --> ");
+		printf("Expiration Month  --> ");
 		Month = stringToInt();
 
 		if (!(Month >= 1 && Month <= 12))
@@ -462,12 +460,12 @@ bool verifyDate()
 	int Year = 0;
 	while (!(getCurrentDate().year <= Year && Year <= 2035))
 	{
-		printf("\n\nExpiration Year\nInput --> ");
+		printf("Expiration Year --> ");
 		Year = stringToInt();
 
 		if (!(getCurrentDate().year <= Year && Year <= 2035))
 		{
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [%d To 2035]\n", getCurrentDate().year);
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [%d To 2035]\n\n", getCurrentDate().year);
 			printf(ANSI_COLOR_RESET);
 		}
 	}
@@ -478,7 +476,7 @@ bool verifyDate()
 	{
 		if (date.month >= Month)
 		{
-			printf(ANSI_COLOR_RED   "The Card Is Expired\n"   ANSI_COLOR_RESET);
+			printf(ANSI_COLOR_RED   "The Card Is Expired\n\n"   ANSI_COLOR_RESET);
 			return false;
 		}
 	}
