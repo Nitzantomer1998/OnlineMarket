@@ -431,15 +431,15 @@ bool verifyCreditCard()
 
 	return true;
 }
-bool verifyCCV()
+bool verifyCVV()
 {
-	int CCV = 0;
-	while (!(CCV >= 100 && CCV <= 999))
+	int CVV = 0;
+	while (!(CVV >= 100 && CVV <= 999))
 	{
-		printf("\n\nCCV\nInput --> ");
-		CCV = stringToInt();
+		printf("\n\nCVV\nInput --> ");
+		CVV = stringToInt();
 
-		if (!(CCV >= 100 && CCV <= 999))
+		if (!(CVV >= 100 && CVV <= 999))
 			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [100 To 999]\n"   ANSI_COLOR_RESET);
 	}
 	
@@ -522,10 +522,13 @@ void customerMenu()
 			break;
 
 		case 6:
+			for (int i = 0; i < c.itemsCount; i++)
+				changeQuantity(&c, i, 0);
+
 			printf(ANSI_COLOR_GREEN   "You've Successfully Logged Out\n\n\n"   ANSI_COLOR_RESET);
 			loop = false;
 			break;
-
+		
 		default:
 			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 6]\n"   ANSI_COLOR_RESET);
 			break;
@@ -640,7 +643,6 @@ void viewCart(Cart* cart)
 					if (optionB <= 0)
 						printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 Or Greater]\n"   ANSI_COLOR_RESET);
 				}
-				printf(ANSI_COLOR_GREEN   "Product Quantity Successfully Changed\n"   ANSI_COLOR_RESET);
 
 				changeQuantity(cart, optionA - 1, optionB);
 			}
@@ -752,12 +754,16 @@ void changeQuantity(Cart* cart, int index, int newQuantity)
 	if (newQuantity > cart->products[index].quantity) 
 	{
 		if (newQuantity - cart->products[index].quantity > availableQuantity)
-			printf("Available Stock --> %d\n", availableQuantity);
+		{
+			printf(ANSI_COLOR_RED   "Invalid, The Entered Quantity Exceeds The Available Quantity\n"   ANSI_COLOR_RESET);
+			printf("Available Stock --> %d\n", availableQuantity + cart->products[index].quantity);
+		}
 
 		else 
 		{
 			updateCatalog(&p, availableQuantity - (newQuantity - cart->products[index].quantity));
 			cart->products[index].quantity = newQuantity;
+			printf(ANSI_COLOR_GREEN   "Product Quantity Successfully Changed\n"   ANSI_COLOR_RESET);
 		}
 	}
 
@@ -765,6 +771,8 @@ void changeQuantity(Cart* cart, int index, int newQuantity)
 	{
 		updateCatalog(&p, availableQuantity + (cart->products[index].quantity - newQuantity));
 		cart->products[index].quantity = newQuantity;
+		if (newQuantity != 0)
+			printf(ANSI_COLOR_GREEN   "Product Quantity Successfully Changed\n"   ANSI_COLOR_RESET);
 	}
 }
 void writeOrder(Cart* cart) 
@@ -846,7 +854,7 @@ void finishOrder(Cart* cart)
 	while (!(verifyCreditCard()))
 		continue;
 
-	while (!(verifyCCV()))
+	while (!(verifyCVV()))
 		continue;
 
 	while (!(verifyDate()))
