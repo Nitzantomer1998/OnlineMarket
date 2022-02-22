@@ -128,15 +128,15 @@ bool verifyDate();
 //CustomerMenu
 void customerMenu();
 void customerShop(Cart* cart);
-void viewCart(Cart* cart);
 void printCart(Cart* cart);
-void openTicket();
+void viewCart(Cart* cart);
 void addToCart(Cart* cart, Product product);
 void removeFromCart(Cart* cart, int index);
 void changeQuantity(Cart* cart, int index, int newQuantity);
-void writeOrder(Cart* cart);
 void finishOrder(Cart* cart);
+void writeOrder(Cart* cart);
 void updatePoints(float newPoints);
+void openTicket();
 Product selectByCategory();
 
 
