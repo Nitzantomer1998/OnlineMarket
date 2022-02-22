@@ -117,7 +117,7 @@ void writeFile(char* filename, char* content)
 }
 void writeUserType(Details* d, UserType type)
 {
-	//Store the data from (Details* d) in variable according the to Usertype//
+	//Write the data from the parameter (Details *d) into the right file//
 
 	char output[200] = { NULL };
 
@@ -184,7 +184,7 @@ UserType findUserType()
 // Authentication
 bool verifyName(Details* d)
 {
-	//Returning if the input name is validate, Else false//
+	//Returning true if the input Name is validate, Else false//
 
 	char string[100] = { NULL };
 
@@ -213,6 +213,8 @@ bool verifyName(Details* d)
 }
 bool verifyPassword(Details* d)
 {
+	//Returning true if the input Password is validate, Else false//
+
 	char* pString = NULL;
 	char* reString = NULL;
 
@@ -268,6 +270,8 @@ bool verifyPassword(Details* d)
 }
 bool verifyId(Details* d)
 {
+	//Returning true if the input ID is validate, Else false//
+
 	char* pString = NULL;
 
 	printf("ID --> ");
@@ -357,6 +361,8 @@ bool verifyId(Details* d)
 }
 bool verifyAge()
 {
+	//Returning true if the input Age is validate, Else false//
+
 	int age = 0;
 
 	printf("Age --> ");
@@ -379,6 +385,8 @@ bool verifyAge()
 }
 bool verifyPhone(Details* d)
 {
+	//Returning true if the input Phone is validate, Else false//
+
 	char* pString = NULL;
 
 	printf("Phone --> ");
@@ -406,6 +414,8 @@ bool verifyPhone(Details* d)
 }
 bool termsAndConditions()
 {
+	//Returning true if the input is yes, Else false//
+
 	printf("\nTerms and Conditions\n'1' The Site, Including Any Content And/Or Service Available Through It, Is Provided To You 'As It Is'.\nAlthough The Company Takes All Efforts To Present The Site Or Through It As Accurate And Reliable Information As Possibl\nThe Company Is Not And Will Not Be Responsible, Directly Or Indirectly, For The Availability, Veracity, Reliability\nAnd/Or Accuracy Of The Content Appearing On The Site, And Reliance On Any Content Displayed On Or Through The Site Is\nYour Full Responsibility.\n\n'2' You May Use The Site And The Content Available Through It For Private And Personal Purposes Only.\nHe Content Of The Site Does Not Grant You Any Rights Other Than Those Set Forth In These Terms\nWhich Constitutes An Agreement For All Intents And Purposes Between You And The Company.\n\n'3' The Content Of The Website May Not Be Used As A Basis For The Purpose Of Making Financial, Legal, Personal\nAnd / Or Other Decisions On Your Part. Any Action Taken By You Based On This Content Is Done At Your Sole Discretion\nAnd At Your Own Responsibility.\nProducts, Descriptions, Design, Colors Or The Appearance Of Products And Services Described Or Displayed On The Site\nAre For Illustration Purposes Only, In Order To Simulate The User's Desired Product In The Closest And Best Way.\nIf You Have Identified A Significant Gap Between The Visibility Of The Actual Requested Product And The Product\nAppearing On The Site, Please Contact Us To Correct It, At The Company's Sole Discretion.\nIn any case, the Company Shall Not Be Liable In Connection With Any Product And / or Recipe And / Or Recommendations\nDetailed Or Displayed On The Website And Through It.\n\n");
 
 	int selection = 0;
@@ -428,6 +438,8 @@ bool termsAndConditions()
 }
 bool verifyCreditCard()
 {
+	//Returning true if the input Credit Card nubmers validate, Else false//
+
 	char* pCreditCard = NULL;
 
 	printf("\nCredit Card Digits --> ");
@@ -454,6 +466,8 @@ bool verifyCreditCard()
 }
 bool verifyCVV()
 {
+	//Returning true if the input Credit Card CVV is validate, Else false//
+
 	int CVV = 0;
 	while (!(CVV >= 100 && CVV <= 999))
 	{
@@ -468,6 +482,8 @@ bool verifyCVV()
 }
 bool verifyDate()
 {
+	//Returning true if the input Credit Card Date is validate, Else false//
+
 	int Month = 0;
 	while (!(Month >= 1 && Month <= 12))
 	{
@@ -509,6 +525,8 @@ bool verifyDate()
 //CustomerMenu
 void customerMenu()
 {
+	//The Customer Homepage//
+
 	Cart c = { NULL , 0 };
 	int selection = 0;
 	bool loop = true;
@@ -556,6 +574,8 @@ void customerMenu()
 }
 void customerShop(Cart* cart)
 {
+	//Customer in shop section Homepage//
+
 	int selection = 0;
 	bool loop = true;
 	Product product = { NULL, NULL, NULL, 0, 0.0 };
@@ -614,8 +634,25 @@ void customerShop(Cart* cart)
 	addToCart(cart, addedProduct);
 	updateCatalog(&product, product.quantity - selectedQuantity);
 }
+void printCart(Cart* cart)
+{
+	//Customer Cart view (print)//
+
+	printf("\n\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "No.", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
+
+	float total = 0;
+
+	for (int i = 0; i < cart->itemsCount; i++)
+	{
+		printf("%-15d%-15s%-15s%-15s%-15.2f%-15d\n", i + 1, cart->products[i].name, cart->products[i].company, cart->products[i].category, cart->products[i].price, cart->products[i].quantity);
+		total += cart->products[i].price * cart->products[i].quantity;
+	}
+	printf("Total --> %.2f\n\n", total);
+}
 void viewCart(Cart* cart)
 {
+	//Customer Cart possible actions//
+
 	int selection = 0, optionA = 0, optionB = -1;
 	bool loop = true;
 
@@ -685,48 +722,10 @@ void viewCart(Cart* cart)
 		}
 	}
 }
-void printCart(Cart* cart)
-{
-	printf("\n\n%-15s%-15s%-15s%-15s%-15s%-15s\n", "No.", "NAME", "COMPANY", "CATEGORY", "PRICE", "QUANTITY");
-
-	float total = 0;
-
-	for (int i = 0; i < cart->itemsCount; i++)
-	{
-		printf("%-15d%-15s%-15s%-15s%-15.2f%-15d\n", i + 1, cart->products[i].name, cart->products[i].company, cart->products[i].category, cart->products[i].price, cart->products[i].quantity);
-		total += cart->products[i].price * cart->products[i].quantity;
-	}
-	printf("Total --> %.2f\n\n", total);
-}
-void openTicket()
-{
-	char source[300] = { NULL }, ticketNum[100] = { NULL }, _Report[500] = { NULL };
-	strcpy(ticketNum, getNextTicketIdStr());
-
-	sprintf(source, "%s%s.csv", FOLDER_DATA_TICKETS_TICKETSUMMARY, ticketNum);
-
-	FILE* file = fopen(source, "w");
-	if (!file) exit(1);
-
-	Date date = getCurrentDate();
-	fprintf(file, "%s,%d/%d/%d\n", ticketNum, date.day, date.month, date.year);
-
-	printf("Input Report --> ");
-	scanf_s(" %[^\n]", _Report, 500);
-
-	fprintf(file, "%s\n", _Report);
-	fclose(file);
-
-	file = fopen(FILE_TICKETS, "ab+");
-	if (!file) exit(1);
-
-	fprintf(file, "%s,%s,%d/%d/%d,WAITING\n", ticketNum, Identity, date.day, date.month, date.year);
-	fclose(file);
-
-	printf(ANSI_COLOR_GREEN   "Ticket Been Sent, Have A Good Day\n"   ANSI_COLOR_RESET);
-}
 void addToCart(Cart* cart, Product product)
 {
+	//Customer adding item to the cart//
+
 	if (cart->itemsCount == 0)
 	{
 		cart->products = malloc(sizeof(Product));
@@ -746,6 +745,8 @@ void addToCart(Cart* cart, Product product)
 }
 void removeFromCart(Cart* cart, int index)
 {
+	//Customer remove item from his cart//
+
 	Product* newProduct = malloc(sizeof(Product) * (cart->itemsCount - 1));
 	Product p = readProduct(FILE_CATALOGS, cart->products[index].name, cart->products[index].company);
 
@@ -766,6 +767,8 @@ void removeFromCart(Cart* cart, int index)
 }
 void changeQuantity(Cart* cart, int index, int newQuantity)
 {
+	//Customer choose product from his cart and change the item quantity//
+
 	bool flag = false;
 	Product p = readProduct(FILE_CATALOGS, cart->products[index].name, cart->products[index].company);
 	int availableQuantity = p.quantity;
@@ -794,8 +797,45 @@ void changeQuantity(Cart* cart, int index, int newQuantity)
 			printf(ANSI_COLOR_GREEN   "Product Quantity Successfully Changed\n"   ANSI_COLOR_RESET);
 	}
 }
+void finishOrder(Cart* cart)
+{
+	//The customer finish the shopping and end his purchase//
+
+	printCart(cart);
+
+	int selection = 0;
+
+	while (!(selection >= 1 && selection <= 2))
+	{
+		printf("\nAre You Sure You Would Like To Finish The Order?\n'1' Yes     '2' No\nInput --> ");
+		selection = stringToInt();
+
+		if (!(selection >= 1 && selection <= 2))
+			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
+	}
+
+	if (selection == 2)
+		return;
+
+	printf("\n\nPayment Process");
+
+	while (!(verifyCreditCard()))
+		continue;
+
+	while (!(verifyCVV()))
+		continue;
+
+	while (!(verifyDate()))
+		continue;
+
+	writeOrder(cart);
+	cart->itemsCount = 0;
+	free(cart->products);
+}
 void writeOrder(Cart* cart)
 {
+	//The customer order is saving in the data of the market//
+
 	char source[300] = { NULL }, orderNum[100] = { NULL };
 	strcpy(orderNum, getNextOrderIdStr());
 
@@ -850,41 +890,10 @@ void writeOrder(Cart* cart)
 	updatePoints(_Points + total * 0.03);
 	printf(ANSI_COLOR_GREEN   "Your Purchase Was Successful\n"   ANSI_COLOR_RESET);
 }
-void finishOrder(Cart* cart)
-{
-	printCart(cart);
-
-	int selection = 0;
-
-	while (!(selection >= 1 && selection <= 2))
-	{
-		printf("\nAre You Sure You Would Like To Finish The Order?\n'1' Yes     '2' No\nInput --> ");
-		selection = stringToInt();
-
-		if (!(selection >= 1 && selection <= 2))
-			printf(ANSI_COLOR_RED   "Invalid Input, Try Between [1 To 2]\n\n"   ANSI_COLOR_RESET);
-	}
-
-	if (selection == 2)
-		return;
-
-	printf("\n\nPayment Process");
-
-	while (!(verifyCreditCard()))
-		continue;
-
-	while (!(verifyCVV()))
-		continue;
-
-	while (!(verifyDate()))
-		continue;
-
-	writeOrder(cart);
-	cart->itemsCount = 0;
-	free(cart->products);
-}
 void updatePoints(float newPoints)
 {
+	//The customer marketPoints updating according to his purchase//
+
 	FILE* file = fopen(FILE_CUSTOMERS, "r");
 	if (!file) exit(1);
 
@@ -906,8 +915,39 @@ void updatePoints(float newPoints)
 	fclose(file);
 	free(output);
 }
+void openTicket()
+{
+	//Customer Submit a feedback (Good/Bad)//
+
+	char source[300] = { NULL }, ticketNum[100] = { NULL }, _Report[500] = { NULL };
+	strcpy(ticketNum, getNextTicketIdStr());
+
+	sprintf(source, "%s%s.csv", FOLDER_DATA_TICKETS_TICKETSUMMARY, ticketNum);
+
+	FILE* file = fopen(source, "w");
+	if (!file) exit(1);
+
+	Date date = getCurrentDate();
+	fprintf(file, "%s,%d/%d/%d\n", ticketNum, date.day, date.month, date.year);
+
+	printf("Input Report --> ");
+	scanf_s(" %[^\n]", _Report, 500);
+
+	fprintf(file, "%s\n", _Report);
+	fclose(file);
+
+	file = fopen(FILE_TICKETS, "ab+");
+	if (!file) exit(1);
+
+	fprintf(file, "%s,%s,%d/%d/%d,WAITING\n", ticketNum, Identity, date.day, date.month, date.year);
+	fclose(file);
+
+	printf(ANSI_COLOR_GREEN   "Ticket Been Sent, Have A Good Day\n"   ANSI_COLOR_RESET);
+}
 Product selectByCategory()
 {
+	//The customer pick a product according the category he would like//
+
 	printf("\n\n");
 
 	Cart tempCart = retrieveProducts(false, NULL, NULL);
@@ -956,6 +996,8 @@ Product selectByCategory()
 //ManagerMenu
 void managerMenu()
 {
+	//The Manager Homepage//
+
 	int selection = 0;
 	bool loop = true;
 
@@ -999,6 +1041,8 @@ void managerMenu()
 }
 void managerStoreActions()
 {
+	//Manager in shop section Homepage//
+
 	int selection = 0;
 	bool loop = true;
 	Product p = { NULL, NULL, NULL, 0, 0.0 };
@@ -1039,6 +1083,8 @@ void managerStoreActions()
 }
 void addToCatalog()
 {
+	//The manager adding item to the catalog//
+
 	printf("\n\nAdding Product\n");
 
 	char* rProductName = NULL;
@@ -1124,6 +1170,8 @@ void addToCatalog()
 }
 void deleteFromCatalog(Product* p)
 {
+	//The manager delete item from the catalog//
+
 	FILE* Temp = fopen(FILE_TEMP, "w");
 	if (!Temp) exit(1);
 
@@ -1159,6 +1207,8 @@ void deleteFromCatalog(Product* p)
 }
 void updateCatalog(Product* p, int userQuantity)
 {
+	//The manager updating an item from the catalog (price/quantity)//
+
 	FILE* Temp = fopen(FILE_TEMP, "w");
 	if (!Temp) exit(1);
 
@@ -1252,6 +1302,8 @@ void updateCatalog(Product* p, int userQuantity)
 }
 void seeTickets()
 {
+	//The manager Homepage to seeing all the tickets who's been submited//
+
 	int selection = 0;
 	while (!(selection >= 1 && selection <= 3))
 	{
@@ -1370,6 +1422,8 @@ void seeTickets()
 }
 void printTicket(int ticketId)
 {
+	//The desireable ticket will be printed/viewed//
+
 	char source[300] = { NULL };
 	sprintf(source, "%s%d.csv", FOLDER_DATA_TICKETS_TICKETSUMMARY, ticketId);
 
@@ -1389,6 +1443,8 @@ void printTicket(int ticketId)
 }
 void changeTicketStatus(int id)
 {
+	//The manager choose which ticket to confirm//
+
 	int count = 0;
 	char* output = copyString("");
 
@@ -1417,6 +1473,8 @@ void changeTicketStatus(int id)
 }
 void printRevenue()
 {
+	//The manager Revenue system, The manager choose from this menu to see his revenue in that period of time//
+
 	int selection = 0;
 
 	while (!(selection >= 1 && selection <= 4))
@@ -1479,6 +1537,8 @@ void printRevenue()
 }
 void showOrders()
 {
+	//The manager Homepage to seeing all the orders who's been purchase//
+
 	int selection = 0;
 	while (!(selection >= 1 && selection <= 3))
 	{
@@ -1600,6 +1660,8 @@ void showOrders()
 }
 void printOrder(int orderId)
 {
+	//The desireable order will be printed/viewed//
+
 	char source[300] = { NULL };
 	sprintf(source, "%s%d.csv", FOLDER_DATA_ORDERS_ORDERSUMMARY, orderId);
 
@@ -1629,6 +1691,8 @@ void printOrder(int orderId)
 }
 void changeOrderStatus(int id)
 {
+	//The manager choose which order to confirm//
+
 	int count = 0;
 	char* output = copyString("");
 
@@ -1658,6 +1722,8 @@ void changeOrderStatus(int id)
 }
 int calcDateDiff(Date d2)
 {
+	//Return the amount of days between the current date and the date from the function parameter//
+
 	Date d1 = getCurrentDate();
 	int daysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int count1 = d1.year * 365 + d1.day;
@@ -1673,6 +1739,8 @@ int calcDateDiff(Date d2)
 }
 Date getCurrentDate()
 {
+	//Getting the current day of today//
+
 	Date date = { 0,0,0 };
 	struct tm* tm;
 	time_t t;
@@ -1688,12 +1756,14 @@ Date getCurrentDate()
 //General
 void welcomeScreen()
 {
+	//Main Homepage//
+
 	int selection = 0;
 	bool loop = true;
 
 	while (loop)
 	{
-		printf("Welcome To Online SuperMarket HomePage\n");
+		printf("Welcome To OnlineMarket HomePage\n");
 		printf("'1' Register     '2' Login     '3' Exit\nInput --> ");
 		selection = stringToInt();
 
@@ -1720,6 +1790,8 @@ void welcomeScreen()
 }
 void registerStage()
 {
+	//Register HomePage//
+
 	int selection = 0, managerCode = 0;
 	bool loop = true;
 
@@ -1762,13 +1834,15 @@ void registerStage()
 }
 void registerUserType(UserType type)
 {
+	//Register to the system/App//
+
 	printf("\n\nRegister Stage\n");
 
 	Details d;
 	verifyName(&d);
 
-	//while (!verifyName(&d))
-		//continue;
+	while (!verifyName(&d))
+		continue;
 
 	while (!verifyPassword(&d))
 		continue;
@@ -1791,6 +1865,7 @@ void registerUserType(UserType type)
 }
 void loginUser()
 {
+	//Login Homepage//
 	printf("\n\nLogin Stage\n");
 
 	char* userId = NULL, * userPassword = NULL;
@@ -1835,6 +1910,8 @@ void loginUser()
 }
 void profile()
 {
+	//Profile Homepage//
+
 	int selection = 0;
 	bool loop = true;
 
@@ -1868,6 +1945,8 @@ void profile()
 }
 void printProfile()
 {
+	//Print the current user details//
+
 	printf(ANSI_COLOR_GREEN   "\n\nUser Information\n"   ANSI_COLOR_RESET);
 
 	Details* details = readUser(findUserType(Identity) == customer ? FILE_CUSTOMERS : FILE_MANAGERS, findUserType(Identity));
@@ -1891,6 +1970,8 @@ void printProfile()
 }
 void updateProfile()
 {
+	//Profile Update (Name/Paswword ext..)//
+
 	FILE* Temp = fopen(FILE_TEMP, "w");
 	if (!Temp) exit(1);
 
@@ -2092,6 +2173,8 @@ void updateProfile()
 }
 char* getNextOrderIdStr()
 {
+	//Return the next order in the folder//
+
 	char _Index[50] = { NULL };
 	int num = 0;
 
@@ -2114,6 +2197,8 @@ char* getNextOrderIdStr()
 }
 char* getNextTicketIdStr()
 {
+	//Return the next ticket in the folder//
+
 	char _Index[50] = { NULL };
 	int num = 0;
 
@@ -2136,6 +2221,8 @@ char* getNextTicketIdStr()
 }
 bool doesProductExist(char* filename, char* _ProductName, char* _Company)
 {
+	//Return true if the product exist, Else false//
+
 	FILE* file = fopen(filename, "r");
 	if (!file) exit(1);
 
@@ -2158,6 +2245,8 @@ bool doesProductExist(char* filename, char* _ProductName, char* _Company)
 }
 Product selectProduct(Cart cart)
 {
+	//Select product from the catalog//
+
 	Product product = { NULL, NULL, NULL, 0, 0.0 };
 
 	if (cart.itemsCount == 0)
@@ -2227,6 +2316,7 @@ sort:
 }
 Product readProduct(char* filename, char* _ProductName, char* _Company)
 {
+	//Return the choosen product from the catalog//
 	FILE* file = fopen(filename, "r");
 	if (!file) exit(1);
 
@@ -2249,6 +2339,7 @@ Product readProduct(char* filename, char* _ProductName, char* _Company)
 }
 Cart retrieveProducts(bool returnAll, char* search, char* searchCategory)
 {
+	//Retrieve all the products from the cart//
 	FILE* file = fopen(FILE_CATALOGS, "r");
 	if (!file) exit(1);
 
