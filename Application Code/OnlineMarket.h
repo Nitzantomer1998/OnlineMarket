@@ -114,15 +114,21 @@ UserType findUserType();
 
 
 // Authentication
-bool verifyName(Details* d);
-bool verifyPassword(Details* d);
-bool verifyId(Details* d);
-bool verifyAge();
-bool verifyPhone(Details* d);
-bool termsAndConditions();
-bool verifyCreditCard();
-bool verifyCVV();
-bool verifyDate();
+void verifyName(Details* d);
+void verifyPassword(Details* d);
+void verifyId(Details* d);
+void verifyAge();
+void verifyPhone(Details* d);
+void termsAndConditions();
+void paymentProcess();
+void verifyCreditCard();
+void verifyCVV();
+void verifyDate();
+void deliveryProcess();
+void verifyCountry();
+void verifyCity();
+void verifyStreet();
+void verifyHomeNumber();
 
 
 //CustomerMenu
