@@ -1,8 +1,16 @@
 # OnlineMarket
-Application For Online Market Shopping
+OnlineMarket is an application for online market shopping such as ebay, amazon, etc.
 
-Hello to everyone, and welcome to my Online Market Project.
-As a Student i made this project mainly for self experience 
-So feel free to help and enhance this Project.
+Hello everyone and welcome to my project OnlineMarket.
+As a student i made this project mainly for self experience
+but found out to love the outcome so i kept improving the
+Code over a few weeks.
 
-And as usual have fun :)
+The code itself is written in C language
+Works mainly with CSV files
+with smart and clean console appearance that highlight
+mistake from the user such as errors, invalid inputs, etc
+in red subtitles that make sure to inform the correct feedback.
+Feel free to use this code and add extra features.
+
+Thank you for visit and as usual have fun :).
